@@ -1,0 +1,1103 @@
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import SEO from '../components/SEO';
+import LightTunnelBackground from '../components/LightTunnelBackground';
+import { useApi } from '../hooks/useApi';
+import { latestUpdatesService, LatestUpdate } from '../services/latestUpdates.service';
+import { membershipService } from '../services/membership.service';
+import {
+  Terminal, Database, Users, Rocket, Cpu, Zap,
+  BrainCircuit, BarChart3, PieChart, MessageSquareCode,
+  Table, Cloud, Binary, Sparkles, Flame,
+  Languages, Package, DownloadCloud, Filter,
+  TrendingUp, CheckCircle2, FlaskConical, Globe, Stethoscope, CloudRain, Focus, Scale, Atom,
+  Eye
+} from 'lucide-react';
+
+/**
+ * Custom hook to handle responsive state safely with SSR/Hydration awareness.
+ */
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  return isMobile;
+};
+
+/**
+ * Animated Text Component for high-impact typography.
+ * On mobile: word-level animation (not letter-level) for much better scroll perf.
+ */
+export const AnimatedText = ({ text, className, animateOnLoad = false }: { text: string; className?: string; animateOnLoad?: boolean }) => {
+  const shouldReduceMotion = useReducedMotion();
+  const isMob = useIsMobile();
+  const words = text.split(" ");
+
+  const container = {
+    hidden: { opacity: 0 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      transition: { staggerChildren: isMob ? 0.04 : 0.08, delayChildren: 0.02 * i },
+    }),
+  };
+
+  const child = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: isMob
+        ? { duration: 0.3, ease: 'easeOut' as const }
+        : { type: "spring" as const, damping: 15, stiffness: 100 }
+    },
+    hidden: {
+      opacity: 0,
+      y: shouldReduceMotion ? 0 : (isMob ? 15 : 40),
+    },
+  };
+
+  const renderChildren = () => (
+    words.map((word, index) => (
+      <motion.span key={index} variants={child} className="inline-block whitespace-nowrap mr-[0.25em]">
+        {word}
+      </motion.span>
+    ))
+  );
+
+  if (animateOnLoad) {
+    return (
+      <motion.div
+        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", overflow: "visible" }}
+        variants={container}
+        initial="hidden"
+        animate="visible"
+        className={className}
+      >
+        {renderChildren()}
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.div
+      style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", overflow: "visible" }}
+      variants={container}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+      className={className}
+    >
+      {renderChildren()}
+    </motion.div>
+  );
+};
+
+
+/**
+ * Data Science Lifecycle Pipeline Section
+ */
+const LifecycleSection = () => {
+  const isMobile = useIsMobile();
+  const steps = [
+    {
+      title: "Data Ingestion",
+      desc: "Gathering diverse signals from databases, cloud logs, and sensors across the digital landscape.",
+      icon: DownloadCloud,
+      color: "#9667E0"
+    },
+    {
+      title: "Refinement",
+      desc: "Cleansing noise and engineering features to ensure high-fidelity inputs for analytical models.",
+      icon: Filter,
+      color: "#4B2C82"
+    },
+    {
+      title: "Synthesis",
+      desc: "Applying neural architectures and statistical models to architect predictive intelligence.",
+      icon: BrainCircuit,
+      color: "#1A0B2E"
+    },
+    {
+      title: "Impact",
+      desc: "Transforming complex model outputs into strategic insights that drive real-world transformation.",
+      icon: TrendingUp,
+      color: "#9667E0"
+    }
+  ];
+
+  return (
+    <div className="py-12 sm:py-24 md:py-40 bg-white relative overflow-hidden">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="text-center mb-16 md:mb-32">
+          <span className="text-[10px] md:text-xs font-black text-[#9667E0] uppercase tracking-[0.4em] mb-6 block">The Pipeline</span>
+          <AnimatedText text="FROM RAW DATA TO INTELLIGENCE" className="text-2xl sm:text-3xl md:text-7xl font-black text-3d mb-8" />
+        </div>
+
+        <div className="relative flex flex-col md:flex-row items-center justify-between gap-12 md:gap-0">
+          {/* Connecting Path Animation */}
+          {!isMobile && (
+            <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 px-12 pointer-events-none">
+              <svg width="100%" height="2" viewBox="0 0 1000 2" fill="none" preserveAspectRatio="none">
+                <motion.path
+                  d="M0 1H1000"
+                  stroke="#D8CAF6"
+                  strokeWidth="2"
+                  strokeDasharray="10 10"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  whileInView={{ pathLength: 1, opacity: 1 }}
+                  transition={{ duration: 1.5, ease: "easeInOut" }}
+                />
+              </svg>
+            </div>
+          )}
+
+          {steps.map((step, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.2 }}
+              className="relative z-10 w-full md:w-[22%] flex flex-col items-center"
+            >
+              {/* Step Icon Hexagon/Circle */}
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                className="w-20 h-20 md:w-32 md:h-32 rounded-3xl bg-white border-2 border-[#D8CAF6] shadow-xl flex items-center justify-center mb-8 relative group"
+              >
+                <step.icon size={isMobile ? 32 : 54} style={{ color: step.color }} />
+                <div className="absolute -inset-2 bg-[#9667E0]/5 rounded-[2rem] -z-10 group-hover:scale-110 transition-transform" />
+
+                {/* Step Number Badge */}
+                <div className="absolute -top-3 -right-3 bg-[#1A0B2E] text-white w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-xs md:text-sm font-black border-2 border-white shadow-lg">
+                  0{idx + 1}
+                </div>
+              </motion.div>
+
+              {/* Text Content */}
+              <div className="text-center md:px-4">
+                <h3 className="text-xl md:text-2xl font-black text-[#1A0B2E] mb-4 uppercase tracking-tight">{step.title}</h3>
+                <p className="text-sm md:text-base font-bold text-[#2D164B] opacity-70 leading-relaxed">
+                  {step.desc}
+                </p>
+              </div>
+
+              {/* Mobile Connector */}
+              {isMobile && idx < steps.length - 1 && (
+                <div className="h-12 w-[2px] bg-gradient-to-b from-[#9667E0]/40 to-transparent my-4" />
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/**
+ * Tangible Outcomes / Practical Impact Section
+ */
+const PracticalImpactSection = () => {
+  const isMobile = useIsMobile();
+  const impacts = [
+    {
+      title: "Campus Mobility Optimizer",
+      outcome: "Deployed an edge-CV model to analyze pedestrian density and optimize corridor light usage.",
+      tools: ["Python", "OpenCV", "FastAPI"],
+      icon: Eye
+    },
+    {
+      title: "Student Success Engine",
+      outcome: "Engineered a predictive model identifying dropout risks with 88% precision using academic trends.",
+      tools: ["Pandas", "Sklearn", "Stats"],
+      icon: FlaskConical
+    },
+    {
+      title: "Regional Weather Bot",
+      outcome: "Built a transformer-based forecaster specialized for Gunupur's micro-climate patterns.",
+      tools: ["LSTM", "NumPy", "GCP"],
+      icon: Cloud
+    },
+    {
+      title: "Club Intelligence Hub",
+      outcome: "Developed an internal ERP to automate event RSVPs and merit tracking for 200+ members.",
+      tools: ["React", "Firebase", "SQL"],
+      icon: Globe
+    }
+  ];
+
+  return (
+    <section className="py-12 sm:py-24 md:py-40 px-4 sm:px-6 bg-gradient-to-b from-white to-[#EEEAFD]/30">
+      <div className="container mx-auto">
+        <div className="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-end gap-6">
+          <div className="max-w-2xl">
+            <span className="text-[10px] md:text-xs font-black text-[#9667E0] uppercase tracking-[0.4em] mb-4 block">Proof of Concept</span>
+            <h2 className="text-3xl md:text-6xl font-black text-[#1A0B2E] leading-tight">BEYOND BUZZWORDS: <br /><span className="text-[#9667E0]">REAL IMPACT</span></h2>
+          </div>
+          <p className="text-[#2D164B] max-w-sm font-bold opacity-70 text-sm md:text-base leading-relaxed">
+            We don't just talk about Data Science. We build, ship, and iterate on solutions that solve local problems.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+          {impacts.map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, x: idx % 2 === 0 ? -20 : 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10 }}
+              className="bg-white p-8 md:p-12 rounded-[3rem] border border-[#D8CAF6] shadow-sm flex flex-col md:flex-row gap-8 items-start group hover:border-[#9667E0] transition-all"
+            >
+              <div className="p-5 md:p-7 bg-[#1A0B2E] rounded-[2rem] text-white shrink-0 shadow-xl group-hover:scale-110 group-hover:bg-[#4B2C82] transition-all">
+                <item.icon size={isMobile ? 24 : 36} />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-xl md:text-2xl font-black text-[#1A0B2E] mb-3 group-hover:text-[#9667E0] transition-colors">{item.title}</h3>
+                <p className="text-[#2D164B] text-sm md:text-lg font-bold opacity-80 leading-relaxed mb-6">
+                  {item.outcome}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {item.tools.map(tool => (
+                    <span key={tool} className="px-4 py-1.5 bg-[#EEEAFD] text-[#1A0B2E] rounded-full text-[9px] md:text-[11px] font-black uppercase tracking-widest border border-[#D8CAF6]">
+                      {tool}
+                    </span>
+                  ))}
+                  <div className="ml-auto flex items-center gap-2 text-[#9667E0]">
+                    <CheckCircle2 size={16} />
+                    <span className="text-[10px] font-black uppercase tracking-widest">Deployed</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/**
+ * Research Frontiers Section
+ */
+const ResearchFrontiers = () => {
+  const frontiers = [
+    { title: "Generative AI", icon: Sparkles, desc: "Architecting advanced prompt systems and fine-tuning neural architectures.", tag: "Frontier" },
+    { title: "Healthcare Analytics", icon: Stethoscope, desc: "Predictive diagnostics and personalized medicine through data synthesis.", tag: "High Impact" },
+    { title: "Climate Science", icon: CloudRain, desc: "Modeling environmental signals to mitigate global ecological shifts.", tag: "Research" },
+    { title: "Computer Vision", icon: Focus, desc: "Real-time perception and autonomous navigation in complex environments.", tag: "Advanced" },
+    { title: "MLOps Scaling", icon: Zap, desc: "Bridging the gap between experimental models and production-grade pipelines.", tag: "Infrastructure" },
+    { title: "Ethical AI", icon: Scale, desc: "Ensuring algorithmic transparency and fairness in automated decisioning.", tag: "Governance" }
+  ];
+
+  return (
+    <section className="py-12 sm:py-24 md:py-40 bg-[#1A0B2E] relative overflow-hidden text-white">
+      {/* Decorative Radar Rings — static on mobile */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-7xl aspect-square flex items-center justify-center opacity-10 pointer-events-none">
+        {[1, 2, 3].map(ring => (
+          <div
+            key={ring}
+            className="absolute rounded-full border border-white"
+            style={{ width: `${ring * 33}%`, height: `${ring * 33}%`, opacity: 0.4 }}
+          />
+        ))}
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="text-center mb-16 md:mb-32">
+          <span className="text-[10px] md:text-xs font-black text-[#9667E0] uppercase tracking-[0.4em] mb-6 block">Future Ready</span>
+          <AnimatedText text="RESEARCH FRONTIERS" className="text-3xl md:text-8xl font-black text-white mb-8 drop-shadow-2xl" />
+          <p className="text-white/60 max-w-3xl mx-auto font-bold text-sm md:text-xl leading-relaxed">
+            Exploring the horizon of machine intelligence and analytical disruption. We evolve with the industry.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+          {frontiers.map((node, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              whileHover={{ y: -15, scale: 1.02 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+              className="bg-white/5 p-8 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] border border-white/10 flex flex-col gap-6 group hover:bg-white/10 transition-all hover:border-[#9667E0]/50"
+            >
+              <div className="p-5 bg-[#9667E0]/20 w-fit rounded-2xl group-hover:bg-[#9667E0] group-hover:text-white transition-all">
+                <node.icon size={32} />
+              </div>
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight">{node.title}</h3>
+                  <span className="text-[9px] font-black uppercase tracking-widest bg-white/10 px-3 py-1 rounded-full text-white/40 group-hover:text-white group-hover:bg-[#9667E0] transition-all">
+                    {node.tag}
+                  </span>
+                </div>
+                <p className="text-sm md:text-base font-bold text-white/50 group-hover:text-white/80 transition-colors leading-relaxed">
+                  {node.desc}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Rotating Atom — disabled on mobile for perf */}
+        <div className="absolute -bottom-40 -left-40 opacity-5 pointer-events-none hidden md:block">
+          <Atom size={600} />
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const BigCountdown = () => {
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    const target = new Date("Feb 14, 2026 18:00:00").getTime();
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = target - now;
+      if (distance < 0) {
+        clearInterval(interval);
+        return;
+      }
+      setTimeLeft({
+        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((distance % (1000 * 60)) / 1000)
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto px-4">
+      {Object.entries(timeLeft).map(([label, value]) => (
+        <div key={label} className="relative group">
+          <div className="absolute inset-0 bg-[#9667E0]/20 rounded-[2rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="relative bg-[#1A0B2E] border-2 border-[#D8CAF6] p-4 sm:p-6 md:p-10 rounded-2xl sm:rounded-[2.5rem] md:rounded-[3rem] shadow-2xl flex flex-col items-center">
+            <span className="text-3xl sm:text-4xl md:text-8xl font-black text-white leading-none mb-2 tabular-nums">
+              {(value as number) < 10 ? `0${value}` : value}
+            </span>
+            <span className="text-[10px] md:text-xs uppercase font-black text-[#D8CAF6] tracking-[0.3em]">{label}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const Home = () => {
+  const navigate = useNavigate();
+  const isMobile = useIsMobile();
+
+  // Fetch latest updates (events, projects, blogs combined)
+  const { data: latestUpdates, isLoading: updatesLoading } = useApi<LatestUpdate[]>(
+    () => latestUpdatesService.get(),
+    []
+  );
+
+
+
+  // Mouse tracking for 3D tilt effect (desktop only)
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth springs for professional feel
+  const springConfig = { damping: 25, stiffness: 150 };
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [15, -15]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-15, 15]), springConfig);
+
+  // Vertical parallax effects
+  const { scrollY } = useScroll();
+
+  // Memoize random positions so they don't recalculate on re-render
+  const particlePositions = useMemo(() =>
+    Array.from({ length: 10 }, () => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      delay: Math.random() * 5,
+      duration: 2 + Math.random() * 3,
+    })), []
+  );
+  const nodePositions = useMemo(() =>
+    Array.from({ length: 6 }, () => ({
+      width: Math.random() * 100 + 50,
+      height: Math.random() * 100 + 50,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+    })), []
+  );
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (isMobile) return; // Skip 3D tilt on mobile
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
+  return (
+    <div className="w-full">
+      <SEO title="Home" description="Official Data Science Club of GIET University. Explore workshops, AI/ML projects, hackathons, alumni network and student research initiatives." />
+      {/* ══ Hero Section ══ */}
+      <section
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="sticky top-0 flex flex-col md:flex-row overflow-hidden z-0"
+        style={{ minHeight: '100vh', perspective: isMobile ? undefined : '1200px' }}
+      >
+
+        {/* LEFT PANEL — Deep black */}
+        <div
+          className="relative flex flex-col justify-center md:w-1/2 w-full px-8 sm:px-12 md:px-16 py-20 md:py-0 overflow-hidden bg-black"
+          style={{ background: '#000000' }}
+        >
+          {/* Dot-grid overlay */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage: 'radial-gradient(circle, rgba(196,181,232,0.07) 1px, transparent 1px)',
+              backgroundSize: '32px 32px',
+            }}
+          />
+
+          {/* Faint glow */}
+          {!isMobile && (
+            <motion.div
+              className="absolute pointer-events-none rounded-full"
+              style={{
+                width: 500, height: 500,
+                left: '-15%', top: '15%',
+                background: 'rgba(150,103,224,0.1)',
+                filter: 'blur(100px)',
+              }}
+              animate={{ scale: [1, 1.08, 1], opacity: [0.5, 0.9, 0.5] }}
+              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          )}
+
+          <div className="relative z-10">
+
+            {/* Heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="font-black leading-[1.0] tracking-tight mb-6 text-left uppercase"
+              style={{
+                fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
+                color: '#FFFFFF',
+              }}
+            >
+              PIONEERING<br />
+              <span style={{ color: '#C4B5E8' }}>THE FUTURE</span><br />
+              OF DATA SCIENCE
+            </motion.h1>
+
+
+            {/* CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+              className="flex flex-row items-center gap-4"
+            >
+              <motion.button
+                onClick={() => navigate('/join')}
+                whileHover={{ scale: 1.04, boxShadow: '0 0 36px rgba(196,181,232,0.5)' }}
+                whileTap={{ scale: 0.97 }}
+                className="px-8 py-3.5 rounded-full font-bold text-sm tracking-wide cursor-pointer"
+                style={{ background: '#C4B5E8', color: '#141414', boxShadow: '0 0 20px rgba(196,181,232,0.2)' }}
+              >
+                Join the Club →
+              </motion.button>
+              <motion.button
+                onClick={() => navigate('/events')}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                className="px-8 py-3.5 rounded-full font-bold text-sm tracking-wide cursor-pointer"
+                style={{ background: 'transparent', border: '1px solid rgba(196,181,232,0.3)', color: '#C4B5E8' }}
+              >
+                Explore Events
+              </motion.button>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* RIGHT PANEL — Futuristic light tunnel */}
+        <div
+          className="relative flex flex-col justify-center items-center md:w-1/2 w-full px-8 py-16 md:py-0 overflow-hidden"
+          style={{ background: '#fcfbfe' }}
+        >
+          {/* Canvas-based light tunnel background */}
+          <LightTunnelBackground />
+
+          {/* Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 40, scale: 0.94 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.85, delay: 0.3, ease: 'easeOut' }}
+            style={isMobile ? {} : { rotateX, rotateY, transformStyle: 'preserve-3d' }}
+            className="relative z-10 w-full max-w-[360px] md:max-w-[460px]"
+          >
+            {/* Glow border */}
+            <div
+              className="absolute -inset-[2px] rounded-3xl"
+              style={{
+                background: 'linear-gradient(135deg, #4B2C82, #9667E0, #2D164B, #4B2C82)',
+                backgroundSize: '300% 300%',
+                animation: 'gradientShift 5s ease infinite',
+                filter: 'blur(1px)',
+              }}
+            />
+            {/* Card body */}
+            <div
+              className="relative rounded-3xl overflow-hidden"
+              style={{
+                background: 'linear-gradient(145deg, #1A0B2E 0%, #2D164B 100%)',
+                border: '1px solid rgba(150,103,224,0.3)',
+                transform: 'translateZ(40px)',
+              }}
+            >
+              {!isMobile && (
+                <motion.div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(105deg, transparent 40%, rgba(196,181,232,0.06) 50%, transparent 60%)',
+                    width: '200%',
+                  }}
+                  animate={{ x: ['-100%', '100%'] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', repeatDelay: 3 }}
+                />
+              )}
+
+              <div className="px-7 py-7 md:px-8 md:py-8 flex flex-col items-center">
+                {/* Card header */}
+                <div className="text-center mb-5" style={{ transform: 'translateZ(50px)' }}>
+                  <h3
+                    className="text-xl md:text-2xl font-extrabold"
+                    style={{ color: '#ffffff' }}
+                  >
+                    Community of Elite Builders
+                  </h3>
+                  <div className="w-40 h-[1px] mx-auto mt-3" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)' }} />
+                </div>
+
+                {/* Video */}
+                <motion.div
+                  className="w-[200px] h-[200px] md:w-[320px] md:h-[320px] rounded-2xl overflow-hidden mb-6"
+                  style={{ transform: 'translateZ(100px)', boxShadow: '0 0 50px rgba(150,103,224,0.5), 0 20px 60px rgba(0,0,0,0.6)' }}
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.45, ease: 'easeOut' }}
+                >
+                  <video
+                    key="handshake-hero-video"
+                    src="/Handshake_Animation_Edit_Request.mp4"
+                    autoPlay
+                    muted
+                    playsInline
+                    loop
+                    className="w-full h-full object-cover"
+                    style={{ transform: 'scale(1.1)', transformOrigin: 'top left' }}
+                  />
+                </motion.div>
+
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+      </section>
+
+      {/* ── Latest Updates Section ── */}
+      <section
+        className="relative py-16 md:py-32 px-4 md:px-6 overflow-hidden z-20 shadow-[0_-20px_50px_rgba(0,0,0,0.1)]"
+        style={{
+          background: 'linear-gradient(135deg, #EEEAFD 0%, #D8CAF6 25%, #E8E0F5 50%, #F5F0FF 75%, #EEEAFD 100%)'
+        }}
+      >
+        {/* Background decorations */}
+        <div className="absolute inset-0 pointer-events-none" style={{
+          background: 'radial-gradient(ellipse 80% 50% at 20% 40%, rgba(150,103,224,0.15) 0%, transparent 50%), radial-gradient(ellipse 60% 80% at 80% 60%, rgba(75,44,130,0.2) 0%, transparent 50%)',
+        }} />
+        <div className="absolute inset-0 pointer-events-none opacity-[0.04]" style={{
+          backgroundImage: 'linear-gradient(rgba(150,103,224,1) 1px, transparent 1px), linear-gradient(90deg, rgba(150,103,224,1) 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
+        }} />
+
+        <div className="container mx-auto max-w-6xl relative z-10">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-10 md:mb-16"
+          >
+
+            <div className="relative inline-flex items-center justify-center p-[4px] rounded-xl mb-6 shadow-2xl overflow-hidden">
+              {/* Spinning RGB Gradient Edge */}
+              <div 
+                className="absolute left-1/2 top-1/2 w-[200vw] aspect-square -translate-x-1/2 -translate-y-1/2 animate-[spin_3s_linear_infinite]"
+                style={{
+                  background: 'conic-gradient(from 0deg, #ff0000, #ff8000, #ffff00, #00ff00, #00ffff, #0000ff, #8000ff, #ff00ff, #ff0000)'
+                }}
+              />
+              {/* Inner Black Box */}
+              <div className="relative bg-[#050505] py-6 px-10 rounded-[10px] w-full h-full z-10">
+                <h2 
+                  className="font-black uppercase tracking-tight text-center m-0 leading-none"
+                  style={{
+                    fontFamily: "'Silkscreen', cursive",
+                    fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
+                    color: '#FFFFFF',
+                    textShadow: `
+                      -2px -2px 0 #1A0B2E, 2px -2px 0 #1A0B2E, -2px 2px 0 #1A0B2E, 2px 2px 0 #1A0B2E,
+                      -3px 0 0 #1A0B2E, 3px 0 0 #1A0B2E, 0 -3px 0 #1A0B2E, 0 3px 0 #1A0B2E,
+                      6px 6px 0 #FFFFFF, 
+                      10px 10px 0 #1A0B2E
+                    `,
+                  }}
+                >
+                  LATEST UPDATE
+                </h2>
+              </div>
+            </div>
+
+          </motion.div>
+
+          {/* Girl Image + Cards Layout */}
+          <div className="flex flex-col md:flex-row items-stretch gap-6 md:gap-10">
+            {/* Announcement Girl — hidden on mobile when updates exist */}
+            <motion.div
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
+              className="relative shrink-0 w-[240px] md:w-[350px] self-center md:self-end mx-auto md:mx-0"
+            >
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[220px] h-[220px] md:w-[320px] md:h-[320px] rounded-full pointer-events-none" style={{
+                background: 'radial-gradient(circle, rgba(150,103,224,0.25) 0%, transparent 70%)',
+                filter: isMobile ? undefined : 'blur(40px)',
+              }} />
+              <img
+                src="/announcement.png"
+                alt="Announcement"
+                className="relative z-10 w-full h-auto object-contain drop-shadow-2xl hidden md:block"
+              />
+              <img
+                src="/announcement2.png"
+                alt="Announcement"
+                className="relative z-10 w-full h-auto object-contain drop-shadow-2xl block md:hidden"
+              />
+            </motion.div>
+
+            {/* Update Cards */}
+            <div className="flex-1 min-w-0">
+              {updatesLoading ? (
+                /* Loading skeleton */
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {[1, 2, 3, 4].map(i => (
+                    <div key={i} className="animate-pulse rounded-2xl p-5 bg-white border border-[#E0D4F5]">
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="h-5 w-20 bg-[#EEEAFD] rounded-full" />
+                      </div>
+                      <div className="h-5 w-3/4 bg-[#EEEAFD]/60 rounded mb-2" />
+                      <div className="h-3 w-full bg-[#EEEAFD]/40 rounded mb-1" />
+                      <div className="h-3 w-5/6 bg-[#EEEAFD]/40 rounded" />
+                    </div>
+                  ))}
+                </div>
+              ) : latestUpdates && latestUpdates.length > 0 ? (
+                /* Cards + Timer layout */
+                <div className="flex flex-col xl:flex-row items-stretch gap-6 w-full">
+                  {/* Left: Cards List */}
+                  <div className="flex-1 flex flex-col gap-6">
+                  {latestUpdates.map((item, idx) => {
+                    const typeConfig = {
+                      event: { emoji: '📅', label: 'Event', color: '#9667E0', bg: 'rgba(150,103,224,0.1)', border: 'rgba(150,103,224,0.25)', route: `/events` },
+                      project: { emoji: '🚀', label: 'Project', color: '#059669', bg: 'rgba(5,150,105,0.1)', border: 'rgba(5,150,105,0.25)', route: `/projects` },
+                      blog: { emoji: '✍️', label: 'Blog', color: '#D97706', bg: 'rgba(217,119,6,0.1)', border: 'rgba(217,119,6,0.25)', route: `/blog` },
+                    }[item.type];
+
+                    return (
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0, x: 100 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: false, amount: 0.2 }}
+                        transition={{ duration: 0.6, type: "spring", bounce: 0.3, delay: idx * 0.1 }}
+                        whileHover={{ y: -4, scale: 1.02 }}
+                        onClick={() => navigate(typeConfig.route)}
+                        className="relative group cursor-pointer flex flex-col-reverse md:flex-row rounded-2xl bg-black border border-white/10 p-5 md:p-8 hover:shadow-xl hover:shadow-[#9667E0]/20 transition-shadow overflow-hidden h-full gap-6 items-stretch"
+                      >
+                        {/* Shimmer on hover — desktop only */}
+                        {!isMobile && (
+                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" style={{
+                            background: 'linear-gradient(135deg, rgba(150,103,224,0.08) 0%, transparent 60%)',
+                          }} />
+                        )}
+
+                        {/* Details Container (Left side on md) */}
+                        <div className="flex-1 flex flex-col justify-center relative z-10">
+                          {/* Type badge + date */}
+                          <div className="flex items-center justify-between gap-2 mb-4 md:mb-6">
+                            <span
+                              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] md:text-xs font-black uppercase tracking-[0.2em]"
+                              style={{
+                                background: typeConfig.bg,
+                                color: typeConfig.color,
+                                border: `1px solid ${typeConfig.border}`,
+                              }}
+                            >
+                              {typeConfig.emoji} {typeConfig.label}
+                            </span>
+                            <span className="text-xs md:text-sm !text-white/40 font-semibold shrink-0">
+                              {new Date(item.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+                            </span>
+                          </div>
+
+                          {/* Title */}
+                          <h4 className="text-xl md:text-3xl font-bold !text-white leading-snug mb-3 line-clamp-2">
+                            {item.title}
+                          </h4>
+
+                          {/* Description */}
+                          <p className="text-base md:text-lg !text-white/60 font-medium leading-relaxed line-clamp-4">
+                            {item.short_description || item.description}
+                          </p>
+
+                          <div className="mt-auto pt-4">
+                            {/* Event-specific meta */}
+                            {item.type === 'event' && item.meta?.event_date && (
+                              <div className="flex items-center gap-3 mt-3 text-xs md:text-sm text-[#9667E0] font-semibold">
+                                <span>📅 {new Date(item.meta.event_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                                {item.meta?.location && <span>📍 {item.meta.location}</span>}
+                              </div>
+                            )}
+
+                            {/* Project tech stack */}
+                            {item.type === 'project' && item.meta?.tech_stack?.length > 0 && (
+                              <div className="flex flex-wrap gap-1 mt-3">
+                                {item.meta.tech_stack.slice(0, 3).map((t: string) => (
+                                  <span key={t} className="px-2 py-0.5 text-[10px] md:text-xs font-bold bg-[#EEEAFD] text-[#4B2C82] rounded-full">{t}</span>
+                                ))}
+                                {item.meta.tech_stack.length > 3 && (
+                                  <span className="px-2 py-0.5 text-[10px] md:text-xs font-bold bg-[#EEEAFD] text-[#4B2C82] rounded-full">+{item.meta.tech_stack.length - 3}</span>
+                                )}
+                              </div>
+                            )}
+
+                            {/* Blog category */}
+                            {item.type === 'blog' && item.meta?.category && (
+                              <div className="mt-3">
+                                <span className="px-2 py-0.5 text-[10px] md:text-xs font-bold bg-orange-50 text-orange-600 rounded-full">{item.meta.category}</span>
+                              </div>
+                            )}
+
+                            {/* Register Soon button — events only */}
+                            {item.type === 'event' && (
+                              <div className="mt-5">
+                                <button
+                                  onClick={(e) => { e.stopPropagation(); navigate('/events'); }}
+                                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs md:text-sm font-black uppercase tracking-widest text-white border border-white/20 hover:border-[#9667E0] hover:bg-[#9667E0]/20 transition-all duration-300"
+                                  style={{ background: 'rgba(150,103,224,0.15)' }}
+                                >
+                                  🔔 Register Soon
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Image Container (Right side on md) */}
+                        {item.image_url && (
+                          <div className="w-full md:w-[40%] h-48 md:h-auto rounded-xl overflow-hidden relative z-10 shrink-0">
+                            <img
+                              loading="lazy"
+                              src={item.image_url}
+                              alt={item.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                          </div>
+                        )}
+                      </motion.div>
+                    );
+                  })}
+                  </div>
+
+                </div>
+              ) : (
+                /* Empty state — no updates yet */
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="flex flex-col items-center justify-center rounded-3xl bg-white border border-[#E0D4F5] p-8 md:p-14 text-center min-h-[250px]"
+                >
+                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#EEEAFD] flex items-center justify-center mb-5">
+                    <Sparkles size={28} className="text-[#9667E0]" />
+                  </div>
+                  <h3 className="text-lg md:text-2xl font-black text-[#1A0B2E] mb-2">
+                    Coming Soon!
+                  </h3>
+                  <p className="text-sm md:text-base text-[#2D164B]/60 font-medium max-w-sm">
+                    We'll bring exciting updates soon — new events, projects, hackathons, and workshops. Stay tuned!
+                  </p>
+                </motion.div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none" style={{
+          background: 'linear-gradient(to bottom, transparent, #EEEAFD)',
+        }} />
+      </section>
+
+      {/* Main Content Sections */}
+      <section
+        className="relative py-24 md:py-40 px-4 md:px-6 overflow-hidden z-20"
+        style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #EEEAFD 40%, #D8CAF6 100%)' }}
+      >
+        <div className="container mx-auto relative z-10">
+          {/* ── Our Mission & Vision ── */}
+          <div className="mb-24 md:mb-40">
+            <div className="text-center mb-12 md:mb-16">
+              <span className="text-[10px] md:text-xs font-black text-[#9667E0] uppercase tracking-[0.4em] mb-4 block">Purpose Driven</span>
+              <motion.h2
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className="font-black leading-[1.0] tracking-tight mb-4 text-center uppercase"
+                style={{
+                  fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
+                  color: '#1A0B2E',
+                }}
+              >
+                OUR MISSION & VISION
+              </motion.h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+              {/* Mission */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="bg-white rounded-2xl p-8 md:p-10 border border-[#E0D4F5] shadow-sm hover:shadow-lg hover:border-[#9667E0]/40 transition-all"
+              >
+                <div className="w-12 h-12 rounded-xl bg-[#1A0B2E] flex items-center justify-center mb-5">
+                  <Rocket size={22} className="text-white" />
+                </div>
+                <h3 className="text-xl md:text-2xl font-extrabold text-[#1A0B2E] mb-3 tracking-tight">Our Mission</h3>
+                <p className="text-[#2D164B] text-sm md:text-base font-medium leading-relaxed opacity-80">
+                  To empower students with cutting-edge data science skills through hands-on learning, collaborative projects, and industry exposure — transforming curious minds into confident data professionals ready to solve real-world problems.
+                </p>
+              </motion.div>
+              {/* Vision */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.15 }}
+                className="bg-white rounded-2xl p-8 md:p-10 border border-[#E0D4F5] shadow-sm hover:shadow-lg hover:border-[#9667E0]/40 transition-all"
+              >
+                <div className="w-12 h-12 rounded-xl bg-[#1A0B2E] flex items-center justify-center mb-5">
+                  <Eye size={22} className="text-white" />
+                </div>
+                <h3 className="text-xl md:text-2xl font-extrabold text-[#1A0B2E] mb-3 tracking-tight">Our Vision</h3>
+                <p className="text-[#2D164B] text-sm md:text-base font-medium leading-relaxed opacity-80">
+                  To build GIET University's most impactful student community — a knowledge hub where innovation meets execution, producing future-ready analysts, engineers, and researchers who lead the data revolution.
+                </p>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* ── What We Do ── */}
+          <div className="mb-24 md:mb-48">
+            <div className="text-center mb-12 md:mb-16">
+              <span className="text-[10px] md:text-xs font-black text-[#9667E0] uppercase tracking-[0.4em] mb-4 block">Our Activities</span>
+              <motion.h2
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className="font-black leading-[1.0] tracking-tight mb-4 text-center uppercase"
+                style={{
+                  fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
+                  color: '#1A0B2E',
+                }}
+              >
+                WHAT WE DO
+              </motion.h2>
+              <p className="text-[#1A0B2E] max-w-xl mx-auto font-bold opacity-60 text-sm md:text-base">
+                From intensive workshops to innovation labs — everything we do is designed to accelerate your data science journey.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {[
+                {
+                  icon: Terminal,
+                  title: 'Workshops & Bootcamps',
+                  desc: 'Intensive training sessions covering Python, SQL, ML frameworks, and advanced data science techniques.',
+                  color: 'linear-gradient(135deg, #F8F7FF 0%, #EEEAFD 100%)',
+                  accent: '#9667E0',
+                },
+                {
+                  icon: BrainCircuit,
+                  title: 'AI/ML Projects',
+                  desc: 'Collaborate on real-world projects applying machine learning to solve practical problems and create impact.',
+                  color: 'linear-gradient(135deg, #F5FFF9 0%, #E6F7ED 100%)',
+                  accent: '#10A37F',
+                },
+                {
+                  icon: Users,
+                  title: 'Speaker Sessions',
+                  desc: 'Learn from industry experts and researchers sharing insights on cutting-edge data science trends and tools.',
+                  color: 'linear-gradient(135deg, #FFF5F7 0%, #FEE2E7 100%)',
+                  accent: '#E11D48',
+                },
+                {
+                  icon: Zap,
+                  title: 'Hackathons & Competitions',
+                  desc: 'Participate in competitions to showcase your skills, win prizes, and gain recognition in the data science community.',
+                  color: 'linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%)',
+                  accent: '#D97706',
+                },
+                {
+                  icon: Atom,
+                  title: 'Peer Learning',
+                  desc: 'Engage in study groups, code reviews, and collaborative learning to strengthen your skills together.',
+                  color: 'linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%)',
+                  accent: '#0284C7',
+                },
+                {
+                  icon: FlaskConical,
+                  title: 'Innovation Lab',
+                  desc: 'Ideate and experiment with emerging technologies and novel approaches to data science challenges.',
+                  color: 'linear-gradient(135deg, #FDF4FF 0%, #FAE8FF 100%)',
+                  accent: '#C026D3',
+                },
+              ].map((card, i) => (
+                <motion.div
+                  key={card.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.08 }}
+                  className="group rounded-2xl p-7 md:p-8 border border-[#E0D4F5] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all"
+                  style={{ background: card.color }}
+                >
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-colors"
+                    style={{ backgroundColor: card.accent }}
+                  >
+                    <card.icon size={22} className="text-white" />
+                  </div>
+                  <h4 className="text-base md:text-lg font-extrabold text-[#1A0B2E] mb-2 tracking-tight">{card.title}</h4>
+                  <p className="text-[#2D164B] text-sm font-medium leading-relaxed opacity-70">{card.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+
+          {/* Practical Impact Section */}
+          <PracticalImpactSection />
+
+
+
+
+        </div>
+      </section>
+
+      {/* ── Internal Linking + Keyword Content Section ── */}
+      <section className="relative z-20 py-16 md:py-24 px-4 md:px-6 bg-white">
+        <div className="container mx-auto max-w-5xl">
+          {/* Keyword-rich description for SEO */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 md:mb-16"
+          >
+            <h2 className="text-2xl md:text-4xl font-black text-[#1A0B2E] mb-6 tracking-tight">
+              Explore <span className="text-[#9667E0]">DSC GIETU</span>
+            </h2>
+            <p className="text-[#2D164B] text-sm md:text-base font-medium opacity-70 max-w-3xl mx-auto leading-relaxed">
+              The Data Science Club at GIET University (DSC GIETU) is a student-led community focused on artificial intelligence, machine learning, data science research, hackathons, and technical workshops. Discover what we do and join our growing community.
+            </p>
+          </motion.div>
+
+          {/* Quick-link cards for sitelinks */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+            {[
+              { title: 'Explore Our Events', desc: 'Workshops, hackathons, tech talks and more.', path: '/events', emoji: '📅' },
+              { title: 'View Student Projects', desc: 'Real-world AI/ML projects by our members.', path: '/projects', emoji: '🚀' },
+              { title: 'Meet Our Alumni', desc: 'Graduates making impact in data science.', path: '/alumni', emoji: '🎓' },
+              { title: 'Browse the Gallery', desc: 'Photos and highlights from club activities.', path: '/gallery', emoji: '📸' },
+            ].map((item, idx) => (
+              <motion.div
+                key={item.path}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                onClick={() => navigate(item.path)}
+                className="group cursor-pointer bg-[#FAFAFE] border border-[#E0D4F5] rounded-2xl p-6 hover:shadow-lg hover:border-[#9667E0]/40 hover:-translate-y-1 transition-all"
+              >
+                <span className="text-2xl mb-3 block">{item.emoji}</span>
+                <h3 className="text-base font-extrabold text-[#1A0B2E] mb-2 group-hover:text-[#9667E0] transition-colors">{item.title}</h3>
+                <p className="text-xs text-[#2D164B] font-medium opacity-60 leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer CTA: Optimized Conversion Tier */}
+      <section className="relative z-20 py-12 sm:py-24 md:py-40 px-4 md:px-6 bg-[#D8CAF6] flex flex-col items-center justify-center text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="font-black leading-[1.0] tracking-tight mb-10 text-center uppercase"
+          style={{
+            fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
+            color: '#1A0B2E',
+          }}
+        >
+          READY TO DECODE?
+        </motion.h2>
+        <p className="text-[#2D164B] text-lg md:text-2xl font-bold mb-12 md:mb-16 max-w-3xl px-4 leading-relaxed">
+          The barrier to entry is curiosity. Join the most active technical community at GIET University.
+        </p>
+        <button
+          onClick={() => navigate('/join')}
+          className="w-full sm:w-auto px-16 py-6 bg-[#1A0B2E] text-white rounded-3xl font-black text-lg md:text-2xl tracking-widest uppercase shadow-2xl hover:bg-[#4B2C82] transition-all transform hover:scale-105 active:scale-95"
+        >
+          Join The Mission
+        </button>
+      </section>
+    </div>
+  );
+};
+
+export default Home;

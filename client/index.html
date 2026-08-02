@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DSC GIETU | Data Science Club — GIET University</title>
+  <meta name="description"
+    content="Official Data Science Club of GIET University. Explore workshops, AI/ML projects, hackathons, alumni network and student research initiatives." />
+  <meta name="theme-color" content="#1A0B2E" />
+  <link rel="icon" type="image/png" href="/DSC_LogoV2.png" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.gietdsclub.me/" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="DSC GIETU | Data Science Club" />
+  <meta property="og:description" content="Official Data Science Club of GIET University" />
+  <meta property="og:url" content="https://www.gietdsclub.me" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.gietdsclub.me/DSC_LogoV2.png" />
+
+  <!-- Organization Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "DSC GIETU - Data Science Club",
+    "url": "https://www.gietdsclub.me",
+    "logo": "https://www.gietdsclub.me/DSC_LogoV2.png",
+    "sameAs": [
+      "https://www.instagram.com/dscgietu/?hl=en",
+      "https://www.linkedin.com/company/dsc-gietu/"
+    ]
+  }
+  </script>
+
+  <!-- Website Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "DSC GIETU",
+    "url": "https://www.gietdsclub.me",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.gietdsclub.me/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&family=Silkscreen:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/src/styles/global.css">
+
+</head>
+
+<body>
+  <!-- Force scroll to top on every page load/reload before React mounts -->
+  <script>if('scrollRestoration' in history) history.scrollRestoration='manual'; window.scrollTo(0,0);</script>
+
+  <!-- Native splash screen — covers everything until React mounts -->
+  <div id="splash-screen" style="position:fixed;inset:0;z-index:9999;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+    <img src="/DSC_LogoV2.png" alt="Loading" style="width:80px;height:80px;object-fit:contain;animation:splashPulse 1.5s ease-in-out infinite;" />
+    <p style="margin-top:16px;font-family:'Inter',sans-serif;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.4em;color:#2D164B;">Loading...</p>
+  </div>
+  <style>@keyframes splashPulse{0%,100%{opacity:.7;transform:scale(.95)}50%{opacity:1;transform:scale(1.05)}}</style>
+
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>

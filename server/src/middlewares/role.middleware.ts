@@ -1,0 +1,33 @@
+import { Request, Response, NextFunction } from 'express';
+import { UserRole } from '../types';
+
+/**
+ * Role-based access control middleware
+ * Must be used AFTER authenticate middleware
+ *
+ * Usage:
+ *   authorize('admin')
+ *   authorize('member', 'admin')
+ */
+export function authorize(...allowedRoles: UserRole[]) {
+  return (req: Request, res: Response, next: NextFunction): void => {
+    if (!req.user) {
+      res.status(401).json({
+        success: false,
+        message: 'Authentication required.',
+      });
+      return;
+    }
+
+    if (!allowedRoles.includes(req.user.role)) {
+      res.status(403).json({
+        success: false,
+        message: `Access denied. Required role: ${allowedRoles.join(' or ')}. Your role: ${req.user.role}.`,
+      });
+      return;
+    }
+
+    next();
+  };
+}
+

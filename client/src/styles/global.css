@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+:root {
+  --pure-white: #FFFFFF;
+  --lavender-web: #EEEAFD;
+  --periwinkle: #D8CAF6;
+  --wisteria: #C2A9EF;
+  --amethyst: #9667E0;
+  --royal-purple: #4B2C82;
+  --deep-contrast: #1A0B2E;
+  --text-main: #2D164B;
+}
+
+html, body {
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: var(--text-main);
+  background-color: var(--pure-white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* For extremely smooth dashboard scrolling */
+.dashboard-container {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--deep-contrast);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* GPU-promote scrolling sections on mobile */
+@media (max-width: 767px) {
+
+  /* Disable costly backdrop-filter on mobile */
+  .backdrop-blur-sm,
+  .backdrop-blur-xl,
+  [class*="backdrop-blur"] {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
+.font-mono {
+  font-family: 'Fira Code', monospace;
+}
+
+/* Standardized Responsive 3D Text */
+/* Mobile: Slight 3D depth for clarity without crowding */
+.text-3d {
+  color: var(--deep-contrast);
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  text-shadow:
+    0.5px 0.5px 0px var(--periwinkle),
+    1px 1px 0px var(--wisteria);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Desktop: High-impact layered 3D extrusion */
+@media (min-width: 768px) {
+  .text-3d {
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    text-shadow:
+      1px 1px 0px var(--periwinkle),
+      2px 2px 0px var(--periwinkle),
+      3px 3px 0px var(--wisteria),
+      4px 4px 0px var(--wisteria),
+      5px 5px 0px var(--amethyst),
+      6px 6px 0px var(--amethyst),
+      7px 7px 0px var(--royal-purple),
+      10px 15px 30px rgba(26, 11, 46, 0.4);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-text {
+  animation: gradient-shift 6s ease infinite;
+}
+
+.events-hero {
+  height: 75vh;
+}
+
+.events-hero-tile {
+  width: 480px;
+}
+
+@media (max-width: 767px) {
+  .events-hero {
+    height: 55vh;
+  }
+
+  .events-hero-tile {
+    width: 300px;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Remove rectangular focus outline on SVG interactive elements */
+svg path[role="button"]:focus,
+svg path[role="button"]:focus-visible {
+  outline: none !important;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--pure-white);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--periwinkle);
+  border-radius: 10px;
+  border: 2px solid var(--pure-white);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--amethyst);
+}

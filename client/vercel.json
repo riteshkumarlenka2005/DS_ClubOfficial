@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/:path(.*)",
+      "has": [{ "type": "host", "value": "gietdsclub.me" }],
+      "destination": "https://www.gietdsclub.me/:path",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://dsclubofficial-production-e5e4.up.railway.app/api/:path*" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
