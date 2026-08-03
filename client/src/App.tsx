@@ -18,10 +18,10 @@ import RoleProtectedRoute from './components/auth/RoleProtectedRoute';
 // Public pages
 const Home = lazy(() => import('./pages/Home'));
 const Alumni = lazy(() => import('./pages/Alumni'));
-const Projects = lazy(() => import('./pages/Projects'));
 const Events = lazy(() => import('./pages/Events'));
 const Gallery = lazy(() => import('./pages/Gallery'));
 const Blog = lazy(() => import('./pages/Blog'));
+const GalleryBlog = lazy(() => import('./pages/GalleryBlog'));
 const About = lazy(() => import('./pages/About'));
 const JoinUs = lazy(() => import('./pages/JoinUs'));
 const TechResource = lazy(() => import('./pages/TechResource'));
@@ -85,21 +85,21 @@ const AppContent: React.FC = () => {
   const isHome = location.pathname === '/';
 
   return (
-    <div className="relative min-h-screen w-full bg-white flex flex-col">
+    <div className="relative min-h-screen w-full flex flex-col">
       {!isDashboard && <Navbar />}
-      <main className={`flex-1 relative z-0 ${isDashboard || isHome ? '' : 'pt-14 md:pt-12'}`}>
+      <main className="flex-1 relative z-0">
         <AnimatePresence mode="wait">
           <Suspense fallback={<LoadingScreen />}>
             <Routes>
               {/* ── Public Routes ── */}
               <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
               <Route path="/alumni" element={<PageWrapper><Alumni /></PageWrapper>} />
-              <Route path="/projects" element={<PageWrapper><Projects /></PageWrapper>} />
               <Route path="/events" element={<PageWrapper><Events /></PageWrapper>} />
               <Route path="/events/:eventSlug/register" element={<PageWrapper><EventRegister /></PageWrapper>} />
               <Route path="/events/:eventSlug/highlights" element={<PageWrapper><EventHighlights /></PageWrapper>} />
-              <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
-              <Route path="/blog" element={<PageWrapper><Blog /></PageWrapper>} />
+              <Route path="/media" element={<PageWrapper><GalleryBlog /></PageWrapper>} />
+              <Route path="/gallery" element={<PageWrapper><GalleryBlog /></PageWrapper>} />
+              <Route path="/blog" element={<PageWrapper><GalleryBlog /></PageWrapper>} />
               <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
               <Route path="/join" element={<PageWrapper><JoinUs /></PageWrapper>} />
               <Route path="/resource/:slug" element={<PageWrapper><TechResource /></PageWrapper>} />

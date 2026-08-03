@@ -7,6 +7,7 @@ import { useApi } from '../hooks/useApi';
 import { eventService } from '../services/event.service';
 import { useAuth } from '../context/AuthContext';
 import SEO from '../components/SEO';
+import { AnimatedText } from './Home';
 
 /* ═══════════════ TYPES ═══════════════ */
 
@@ -48,66 +49,6 @@ function formatTime(dateStr: string): string {
   return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 }
 
-/* ── Hero Slider Images ── */
-const HERO_IMAGES = [
-  { src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&q=80&auto=format', alt: 'Tech conference keynote' },
-  { src: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=900&q=80&auto=format', alt: 'Students collaborating' },
-  { src: 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=900&q=80&auto=format', alt: 'Hackathon coding session' },
-  { src: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=900&q=80&auto=format', alt: 'Workshop presentation' },
-  { src: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=900&q=80&auto=format', alt: 'Speaker on stage' },
-  { src: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=900&q=80&auto=format', alt: 'Classroom learning' },
-  { src: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=900&q=80&auto=format', alt: 'Team brainstorming' },
-  { src: 'https://images.unsplash.com/photo-1492538368677-f6e0afe31dcc?w=900&q=80&auto=format', alt: 'Campus event crowd' },
-];
-
-/* ── Cinematic Hero Slider ── */
-const EventsHeroSlider = () => {
-  const doubled = [...HERO_IMAGES, ...HERO_IMAGES];
-  const [tileWidth, setTileWidth] = useState(480);
-
-  useEffect(() => {
-    const updateWidth = () => setTileWidth(window.innerWidth < 768 ? 300 : 480);
-    updateWidth();
-    window.addEventListener('resize', updateWidth);
-    return () => window.removeEventListener('resize', updateWidth);
-  }, []);
-
-  return (
-    <div className="events-hero w-full overflow-hidden relative bg-[#1A0B2E]">
-      {/* Sliding strip */}
-      <div
-        className="flex h-full"
-        style={{
-          width: `${doubled.length * tileWidth}px`,
-          animation: 'marquee 25s linear infinite',
-        }}
-      >
-        {doubled.map((img, i) => (
-          <div
-            key={i}
-            className="events-hero-tile flex-shrink-0 h-full"
-            style={{ padding: '0 3px' }}
-          >
-            <img
-              src={img.src}
-              alt={img.alt}
-              loading={i < 8 ? 'eager' : 'lazy'}
-              draggable={false}
-              className="w-full h-full object-cover select-none"
-            />
-          </div>
-        ))}
-      </div>
-
-      {/* Soft edge fades */}
-      <div className="absolute inset-y-0 left-0 w-16 md:w-24 pointer-events-none" style={{ background: 'linear-gradient(to right, #1A0B2E, transparent)' }} />
-      <div className="absolute inset-y-0 right-0 w-16 md:w-24 pointer-events-none" style={{ background: 'linear-gradient(to left, #1A0B2E, transparent)' }} />
-
-      {/* Bottom gradient for visual separation */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" style={{ background: 'linear-gradient(to top, white, transparent)' }} />
-    </div>
-  );
-};
 
 /* ── Countdown Timer Component ── */
 const CountdownTimer = ({ targetDate }: { targetDate: string }) => {
@@ -306,7 +247,6 @@ const EventsEmpty = ({ label }: { label: string }) => (
 );
 
 const Events = () => {
-  const [activeTab, setActiveTab] = useState('upcoming');
   const { isAuthenticated } = useAuth();
 
   // Fetch all published events from API
@@ -360,17 +300,104 @@ const Events = () => {
   return (
     <div className="w-full">
       <SEO title="Events" description="Discover upcoming and past events by DSC GIETU — workshops, hackathons, tech talks and more at GIET University." />
-      {/* ── Hero: Cinematic Photo Slider ── */}
-      <EventsHeroSlider />
+      {/* Header with 3D Background */}
+      <section className="relative py-20 md:py-32 text-center px-4 md:px-6 overflow-hidden" style={{
+        background: 'linear-gradient(135deg, #0D0221 0%, #1A0B2E 40%, #2D164B 70%, #1A0B2E 100%)',
+      }}>
+        {/* Animated gradient mesh */}
+        <div className="absolute inset-0 pointer-events-none" style={{
+          background: 'radial-gradient(ellipse 60% 50% at 30% 40%, rgba(150,103,224,0.2) 0%, transparent 60%), radial-gradient(ellipse 50% 60% at 70% 60%, rgba(75,44,130,0.15) 0%, transparent 50%)',
+        }} />
 
-      {/* ── Tab Buttons (unchanged) ── */}
-      <section className="bg-white py-10 text-center px-6">
-        <div className="flex justify-center gap-4">
-          {['upcoming', 'past'].map(tab => (
-            <button key={tab} onClick={() => setActiveTab(tab)} className={`px-6 md:px-10 py-2.5 md:py-3 rounded-full font-black text-xs md:text-sm tracking-widest uppercase transition-all ${activeTab === tab ? 'bg-[#1A0B2E] text-white shadow-xl' : 'bg-white text-[#1A0B2E] border border-[#D8CAF6] hover:bg-[#EEEAFD]'}`}>
-              {tab} Events
-            </button>
-          ))}
+        {/* 3D Floating shapes */}
+        {[
+          { size: 60, x: '15%', y: '20%', delay: 0, duration: 6, rotate: 45 },
+          { size: 40, x: '80%', y: '25%', delay: 1, duration: 8, rotate: -30 },
+          { size: 80, x: '70%', y: '65%', delay: 2, duration: 7, rotate: 60 },
+          { size: 50, x: '25%', y: '70%', delay: 0.5, duration: 9, rotate: -45 },
+          { size: 35, x: '50%', y: '15%', delay: 3, duration: 10, rotate: 20 },
+          { size: 45, x: '90%', y: '50%', delay: 1.5, duration: 6.5, rotate: -60 },
+        ].map((shape, i) => (
+          <motion.div
+            key={i}
+            className="absolute pointer-events-none"
+            style={{
+              left: shape.x, top: shape.y,
+              width: shape.size, height: shape.size,
+              border: `2px solid rgba(150,103,224,${0.15 + i * 0.03})`,
+              borderRadius: i % 3 === 0 ? '50%' : i % 3 === 1 ? '8px' : '0px',
+              transform: `rotate(${shape.rotate}deg)`,
+            }}
+            animate={{
+              y: [0, -30, 10, 0],
+              x: [0, 15, -10, 0],
+              rotate: [shape.rotate, shape.rotate + 180, shape.rotate + 360],
+              scale: [1, 1.1, 0.9, 1],
+            }}
+            transition={{ duration: shape.duration, repeat: Infinity, delay: shape.delay, ease: 'easeInOut' }}
+          />
+        ))}
+
+        {/* Glowing orbs */}
+        {[
+          { size: 250, x: '10%', y: '30%', color: '#9667E0' },
+          { size: 200, x: '75%', y: '50%', color: '#4B2C82' },
+          { size: 180, x: '50%', y: '10%', color: '#D8CAF6' },
+        ].map((orb, i) => (
+          <motion.div
+            key={`orb-${i}`}
+            className="absolute rounded-full pointer-events-none"
+            style={{
+              width: orb.size, height: orb.size,
+              left: orb.x, top: orb.y,
+              background: `radial-gradient(circle, ${orb.color}18 0%, transparent 70%)`,
+              filter: 'blur(50px)',
+            }}
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.4, 0.7, 0.4],
+            }}
+            transition={{ duration: 5 + i * 2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        ))}
+
+        {/* 3D perspective grid */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ perspective: '600px' }}>
+          <motion.div
+            className="absolute w-[200%] h-[200%] -left-1/2 -top-1/2"
+            style={{
+              backgroundImage: 'linear-gradient(rgba(150,103,224,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(150,103,224,0.08) 1px, transparent 1px)',
+              backgroundSize: '50px 50px',
+              transformOrigin: 'center center',
+              transform: 'rotateX(60deg) translateZ(-100px)',
+            }}
+            animate={{ y: ['0%', '2.5%'] }}
+            transition={{ duration: 4, repeat: Infinity, repeatType: 'reverse', ease: 'linear' }}
+          />
+        </div>
+
+        {/* Rotating rings */}
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+        >
+          <div className="w-[350px] h-[350px] md:w-[500px] md:h-[500px] rounded-full border border-[#9667E0]/10" />
+        </motion.div>
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 45, repeat: Infinity, ease: 'linear' }}
+        >
+          <div className="w-[280px] h-[280px] md:w-[400px] md:h-[400px] rounded-full border border-dashed border-[#D8CAF6]/8" />
+        </motion.div>
+
+        {/* Content */}
+        <div className="relative z-10">
+          <AnimatedText text="EVENTS" animateOnLoad className="text-3xl sm:text-4xl md:text-9xl font-black mb-6 md:mb-8 text-white tracking-tight drop-shadow-[0_0_40px_rgba(150,103,224,0.4)]" />
+          <p className="text-white/70 text-lg md:text-2xl max-w-2xl mx-auto font-bold leading-relaxed px-4">
+            Discover upcoming and past events by DSC GIETU — workshops, hackathons, tech talks and more at GIET University.
+          </p>
         </div>
       </section>
 
@@ -381,45 +408,41 @@ const Events = () => {
         <EventsError message={error} onRetry={refetch} />
       ) : (
         <section
-          className="py-24 px-6 min-h-[600px]"
+          className="py-16 px-6 min-h-[600px]"
           style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #EEEAFD 100%)' }}
         >
           <div className="max-w-6xl mx-auto">
-            <AnimatePresence mode="wait">
-              {activeTab === 'upcoming' ? (
-                <motion.div
-                  key="upcoming"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  className="flex flex-col gap-10 max-w-5xl mx-auto"
-                >
-                  {upcoming.length === 0 ? (
-                    <EventsEmpty label="Upcoming" />
-                  ) : (
-                    upcoming.map(event => (
-                      <EventCard key={event.id} event={event} registered={registeredIds.has(event.id)} />
-                    ))
-                  )}
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="past"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-                >
-                  {past.length === 0 ? (
-                    <EventsEmpty label="Past" />
-                  ) : (
-                    past.map(event => (
-                      <PastEventCard key={event.id} event={event} />
-                    ))
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {/* Upcoming Events */}
+            {upcoming.length > 0 && (
+              <div className="flex flex-col gap-10 max-w-5xl mx-auto mb-16">
+                {upcoming.map(event => (
+                  <EventCard key={event.id} event={event} registered={registeredIds.has(event.id)} />
+                ))}
+              </div>
+            )}
+
+            {/* Past Events Grid */}
+            {past.length > 0 && (
+              <>
+                {upcoming.length > 0 && (
+                  <div className="flex items-center gap-4 mb-10">
+                    <div className="flex-1 h-px bg-[#D8CAF6]" />
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#9667E0]">Past Events</span>
+                    <div className="flex-1 h-px bg-[#D8CAF6]" />
+                  </div>
+                )}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {past.map(event => (
+                    <PastEventCard key={event.id} event={event} />
+                  ))}
+                </div>
+              </>
+            )}
+
+            {/* Nothing at all */}
+            {upcoming.length === 0 && past.length === 0 && (
+              <EventsEmpty label="" />
+            )}
           </div>
         </section>
       )}

@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Maximize2, X, ArrowRight, Heart, Sparkles, Camera, History, ArrowLeft, LayoutGrid, Filter } from 'lucide-react';
+import { Maximize2, X, ArrowRight, Heart, Sparkles, Camera, History, ArrowLeft, LayoutGrid, Filter, Newspaper } from 'lucide-react';
 import { AnimatedText } from './Home';
 import { useApi } from '../hooks/useApi';
 import { galleryService } from '../services/gallery.service';
@@ -285,7 +285,7 @@ const GalleryError = ({ message, onRetry }: { message: string; onRetry: () => vo
   </div>
 );
 
-const Gallery: React.FC = () => {
+const Gallery: React.FC<{ onSwitchToBlog?: () => void }> = ({ onSwitchToBlog }) => {
   const [yearFilter, setYearFilter] = useState<string>('');
   const [catFilter, setCatFilter] = useState<string>('All');
   const [activeCollection, setActiveCollection] = useState<Collection | null>(null);
@@ -478,6 +478,14 @@ const Gallery: React.FC = () => {
                             {year}
                           </button>
                         ))}
+                        {onSwitchToBlog && (
+                          <button
+                            onClick={onSwitchToBlog}
+                            className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest bg-[#1A0B2E] text-white hover:bg-[#4B2C82] transition-all cursor-pointer"
+                          >
+                            <Newspaper size={12} /> Blog
+                          </button>
+                        )}
                       </div>
                     </div>
 

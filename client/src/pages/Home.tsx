@@ -453,173 +453,138 @@ const Home = () => {
       <SEO title="Home" description="Official Data Science Club of GIET University. Explore workshops, AI/ML projects, hackathons, alumni network and student research initiatives." />
       {/* ══ Hero Section ══ */}
       <section
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className="sticky top-0 flex flex-col md:flex-row overflow-hidden z-0"
-        style={{ minHeight: '100vh', perspective: isMobile ? undefined : '1200px' }}
+        className="relative flex flex-col justify-center items-center overflow-hidden z-0"
+        style={{ minHeight: '100vh', background: '#F4F1EA' }}
       >
-
-        {/* LEFT PANEL — Deep black */}
+        {/* Dot-grid overlay */}
         <div
-          className="relative flex flex-col justify-center md:w-1/2 w-full px-8 sm:px-12 md:px-16 py-20 md:py-0 overflow-hidden bg-black"
-          style={{ background: '#000000' }}
-        >
-          {/* Dot-grid overlay */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              backgroundImage: 'radial-gradient(circle, rgba(196,181,232,0.07) 1px, transparent 1px)',
-              backgroundSize: '32px 32px',
-            }}
-          />
+          className="absolute inset-0 pointer-events-none opacity-60"
+          style={{
+            backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.15) 1.5px, transparent 1.5px)',
+            backgroundSize: '32px 32px',
+          }}
+        />
 
-          {/* Faint glow */}
-          {!isMobile && (
+        {/* Floating Geometric Elements (CSS based) */}
+        {!isMobile && (
+          <>
+            {/* Top Left Floating Logo */}
             <motion.div
-              className="absolute pointer-events-none rounded-full"
-              style={{
-                width: 500, height: 500,
-                left: '-15%', top: '15%',
-                background: 'rgba(150,103,224,0.1)',
-                filter: 'blur(100px)',
-              }}
-              animate={{ scale: [1, 1.08, 1], opacity: [0.5, 0.9, 0.5] }}
-              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-            />
-          )}
+              className="absolute left-[10%] top-[15%] w-[140px] h-[140px] md:w-[180px] md:h-[180px]"
+              animate={{ y: [-10, 10, -10], rotate: [-10, 5, -10] }}
+              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <img
+                src="/DSC_LogoV2.png"
+                alt="Floating DSC Logo"
+                className="w-full h-full object-contain opacity-80"
+                style={{ filter: 'drop-shadow(12px 12px 10px rgba(0,0,0,0.1))' }}
+              />
+            </motion.div>
+            {/* Bottom Right Cylinder/Spring shape */}
+            <motion.div
+              className="absolute right-[10%] bottom-[15%] flex flex-col gap-2 opacity-90"
+              style={{ transform: 'rotate(20deg)' }}
+              animate={{ y: [10, -10, 10], rotate: [20, 25, 20] }}
+              transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="w-[100px] h-[30px] bg-[#3B4DFF] rounded-full" style={{ boxShadow: 'inset -6px -6px 12px rgba(0,0,0,0.2), 6px 6px 0px rgba(0,0,0,0.05)' }} />
+              ))}
+            </motion.div>
+          </>
+        )}
 
-          <div className="relative z-10">
+        <div className="relative z-10 flex flex-col items-center pt-13 md:pt-15 w-full max-w-[1200px] px-4 md:px-8">
 
-            {/* Heading */}
+          {/* Typographic Group */}
+          <div className="flex flex-col items-center relative w-full">
+
+            {/* BUILD THE (Top row) */}
+            <div className="flex flex-col md:flex-row items-center md:items-end justify-center w-full gap-4 md:gap-8">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="font-black leading-[0.85] tracking-tighter text-[#1A1A1A] text-center uppercase"
+                style={{ fontSize: 'clamp(4.5rem, 12vw, 11rem)' }}
+              >
+                BUILD THE
+              </motion.h1>
+
+              {/* Small supporting paragraph (next to top row on desktop) */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+                className="hidden lg:block max-w-[320px] text-xs md:text-sm font-medium text-gray-700 leading-relaxed text-left pb-3"
+              >
+                The largest and most vibrant community for developers, creative minds and digital wizards who want to design and build with the best AI tools. Here we help each other and create magic together.
+              </motion.p>
+            </div>
+
+            {/* FUTURE (Orange pixel text) */}
             <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="font-black leading-[1.0] tracking-tight mb-6 text-left uppercase"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="leading-[1] tracking-normal text-center mt-4 mb-4"
               style={{
-                fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
-                color: '#FFFFFF',
+                fontFamily: "'Silkscreen', cursive",
+                color: '#FF6B00',
+                fontSize: 'clamp(3.5rem, 11vw, 10rem)',
+                textShadow: '3px 3px 0px rgba(255,107,0,0.2)'
               }}
             >
-              PIONEERING<br />
-              <span style={{ color: '#C4B5E8' }}>THE FUTURE</span><br />
-              OF DATA SCIENCE
+              FUTURE
             </motion.h1>
 
-
-            {/* CTA */}
+            {/* WITH DATA (In selection box) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="flex flex-row items-center gap-4"
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="relative mt-2 md:mt-4 inline-block"
             >
-              <motion.button
-                onClick={() => navigate('/join')}
-                whileHover={{ scale: 1.04, boxShadow: '0 0 36px rgba(196,181,232,0.5)' }}
-                whileTap={{ scale: 0.97 }}
-                className="px-8 py-3.5 rounded-full font-bold text-sm tracking-wide cursor-pointer"
-                style={{ background: '#C4B5E8', color: '#141414', boxShadow: '0 0 20px rgba(196,181,232,0.2)' }}
-              >
-                Join the Club →
-              </motion.button>
-              <motion.button
-                onClick={() => navigate('/events')}
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-                className="px-8 py-3.5 rounded-full font-bold text-sm tracking-wide cursor-pointer"
-                style={{ background: 'transparent', border: '1px solid rgba(196,181,232,0.3)', color: '#C4B5E8' }}
-              >
-                Explore Events
-              </motion.button>
+              <div className="relative border-2 border-[#3B4DFF] px-6 md:px-12 py-2 md:py-4 bg-[#F4F1EA]">
+                {/* 4 corner anchors */}
+                <div className="absolute -top-[5px] -left-[5px] w-2.5 h-2.5 bg-[#3B4DFF]" />
+                <div className="absolute -top-[5px] -right-[5px] w-2.5 h-2.5 bg-[#3B4DFF]" />
+                <div className="absolute -bottom-[5px] -left-[5px] w-2.5 h-2.5 bg-[#3B4DFF]" />
+                <div className="absolute -bottom-[5px] -right-[5px] w-2.5 h-2.5 bg-[#3B4DFF]" />
+
+                <h1
+                  className="font-black leading-[0.85] tracking-tighter text-[#1A1A1A] text-center uppercase"
+                  style={{ fontSize: 'clamp(4rem, 10vw, 9.5rem)' }}
+                >
+                  WITH DATA
+                </h1>
+              </div>
+
             </motion.div>
           </div>
-        </div>
 
-        {/* RIGHT PANEL — Futuristic light tunnel */}
-        <div
-          className="relative flex flex-col justify-center items-center md:w-1/2 w-full px-8 py-16 md:py-0 overflow-hidden"
-          style={{ background: '#fcfbfe' }}
-        >
-          {/* Canvas-based light tunnel background */}
-          <LightTunnelBackground />
-
-          {/* Card */}
+          {/* CTA Button */}
           <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.94 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.85, delay: 0.3, ease: 'easeOut' }}
-            style={isMobile ? {} : { rotateX, rotateY, transformStyle: 'preserve-3d' }}
-            className="relative z-10 w-full max-w-[360px] md:max-w-[460px]"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+            className="mt-16 md:mt-24 flex flex-col items-center"
           >
-            {/* Glow border */}
-            <div
-              className="absolute -inset-[2px] rounded-3xl"
-              style={{
-                background: 'linear-gradient(135deg, #4B2C82, #9667E0, #2D164B, #4B2C82)',
-                backgroundSize: '300% 300%',
-                animation: 'gradientShift 5s ease infinite',
-                filter: 'blur(1px)',
-              }}
-            />
-            {/* Card body */}
-            <div
-              className="relative rounded-3xl overflow-hidden"
-              style={{
-                background: 'linear-gradient(145deg, #1A0B2E 0%, #2D164B 100%)',
-                border: '1px solid rgba(150,103,224,0.3)',
-                transform: 'translateZ(40px)',
-              }}
+            <button
+              onClick={() => navigate('/join')}
+              className="group flex items-center gap-3 px-8 py-3.5 rounded-full font-bold text-xs tracking-widest uppercase cursor-pointer hover:-translate-y-1 transition-all duration-300"
+              style={{ background: '#3B4DFF', color: '#FFFFFF', boxShadow: '0 10px 30px rgba(59,77,255,0.2)' }}
             >
-              {!isMobile && (
-                <motion.div
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background: 'linear-gradient(105deg, transparent 40%, rgba(196,181,232,0.06) 50%, transparent 60%)',
-                    width: '200%',
-                  }}
-                  animate={{ x: ['-100%', '100%'] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', repeatDelay: 3 }}
-                />
-              )}
-
-              <div className="px-7 py-7 md:px-8 md:py-8 flex flex-col items-center">
-                {/* Card header */}
-                <div className="text-center mb-5" style={{ transform: 'translateZ(50px)' }}>
-                  <h3
-                    className="text-xl md:text-2xl font-extrabold"
-                    style={{ color: '#ffffff' }}
-                  >
-                    Community of Elite Builders
-                  </h3>
-                  <div className="w-40 h-[1px] mx-auto mt-3" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)' }} />
-                </div>
-
-                {/* Video */}
-                <motion.div
-                  className="w-[200px] h-[200px] md:w-[320px] md:h-[320px] rounded-2xl overflow-hidden mb-6"
-                  style={{ transform: 'translateZ(100px)', boxShadow: '0 0 50px rgba(150,103,224,0.5), 0 20px 60px rgba(0,0,0,0.6)' }}
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, delay: 0.45, ease: 'easeOut' }}
-                >
-                  <video
-                    key="handshake-hero-video"
-                    src="/Handshake_Animation_Edit_Request.mp4"
-                    autoPlay
-                    muted
-                    playsInline
-                    loop
-                    className="w-full h-full object-cover"
-                    style={{ transform: 'scale(1.1)', transformOrigin: 'top left' }}
-                  />
-                </motion.div>
-
+              Join The Community
+              <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                <span className="text-white text-sm leading-none transform -rotate-45 block relative top-[1px] left-[1px]">→</span>
               </div>
-            </div>
-          </motion.div>
-        </div>
+            </button>
 
+          </motion.div>
+
+        </div>
       </section>
 
       {/* ── Latest Updates Section ── */}
@@ -650,7 +615,7 @@ const Home = () => {
 
             <div className="relative inline-flex items-center justify-center p-[4px] rounded-xl mb-6 shadow-2xl overflow-hidden">
               {/* Spinning RGB Gradient Edge */}
-              <div 
+              <div
                 className="absolute left-1/2 top-1/2 w-[200vw] aspect-square -translate-x-1/2 -translate-y-1/2 animate-[spin_3s_linear_infinite]"
                 style={{
                   background: 'conic-gradient(from 0deg, #ff0000, #ff8000, #ffff00, #00ff00, #00ffff, #0000ff, #8000ff, #ff00ff, #ff0000)'
@@ -658,7 +623,7 @@ const Home = () => {
               />
               {/* Inner Black Box */}
               <div className="relative bg-[#050505] py-6 px-10 rounded-[10px] w-full h-full z-10">
-                <h2 
+                <h2
                   className="font-black uppercase tracking-tight text-center m-0 leading-none"
                   style={{
                     fontFamily: "'Silkscreen', cursive",
@@ -726,117 +691,117 @@ const Home = () => {
                 <div className="flex flex-col xl:flex-row items-stretch gap-6 w-full">
                   {/* Left: Cards List */}
                   <div className="flex-1 flex flex-col gap-6">
-                  {latestUpdates.map((item, idx) => {
-                    const typeConfig = {
-                      event: { emoji: '📅', label: 'Event', color: '#9667E0', bg: 'rgba(150,103,224,0.1)', border: 'rgba(150,103,224,0.25)', route: `/events` },
-                      project: { emoji: '🚀', label: 'Project', color: '#059669', bg: 'rgba(5,150,105,0.1)', border: 'rgba(5,150,105,0.25)', route: `/projects` },
-                      blog: { emoji: '✍️', label: 'Blog', color: '#D97706', bg: 'rgba(217,119,6,0.1)', border: 'rgba(217,119,6,0.25)', route: `/blog` },
-                    }[item.type];
+                    {latestUpdates.map((item, idx) => {
+                      const typeConfig = {
+                        event: { emoji: '📅', label: 'Event', color: '#9667E0', bg: 'rgba(150,103,224,0.1)', border: 'rgba(150,103,224,0.25)', route: `/events` },
+                        project: { emoji: '🚀', label: 'Project', color: '#059669', bg: 'rgba(5,150,105,0.1)', border: 'rgba(5,150,105,0.25)', route: `/` },
+                        blog: { emoji: '✍️', label: 'Blog', color: '#D97706', bg: 'rgba(217,119,6,0.1)', border: 'rgba(217,119,6,0.25)', route: `/blog` },
+                      }[item.type];
 
-                    return (
-                      <motion.div
-                        key={item.id}
-                        initial={{ opacity: 0, x: 100 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: false, amount: 0.2 }}
-                        transition={{ duration: 0.6, type: "spring", bounce: 0.3, delay: idx * 0.1 }}
-                        whileHover={{ y: -4, scale: 1.02 }}
-                        onClick={() => navigate(typeConfig.route)}
-                        className="relative group cursor-pointer flex flex-col-reverse md:flex-row rounded-2xl bg-black border border-white/10 p-5 md:p-8 hover:shadow-xl hover:shadow-[#9667E0]/20 transition-shadow overflow-hidden h-full gap-6 items-stretch"
-                      >
-                        {/* Shimmer on hover — desktop only */}
-                        {!isMobile && (
-                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" style={{
-                            background: 'linear-gradient(135deg, rgba(150,103,224,0.08) 0%, transparent 60%)',
-                          }} />
-                        )}
+                      return (
+                        <motion.div
+                          key={item.id}
+                          initial={{ opacity: 0, x: 100 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: false, amount: 0.2 }}
+                          transition={{ duration: 0.6, type: "spring", bounce: 0.3, delay: idx * 0.1 }}
+                          whileHover={{ y: -4, scale: 1.02 }}
+                          onClick={() => navigate(typeConfig.route)}
+                          className="relative group cursor-pointer flex flex-col-reverse md:flex-row rounded-2xl bg-black border border-white/10 p-5 md:p-8 hover:shadow-xl hover:shadow-[#9667E0]/20 transition-shadow overflow-hidden h-full gap-6 items-stretch"
+                        >
+                          {/* Shimmer on hover — desktop only */}
+                          {!isMobile && (
+                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" style={{
+                              background: 'linear-gradient(135deg, rgba(150,103,224,0.08) 0%, transparent 60%)',
+                            }} />
+                          )}
 
-                        {/* Details Container (Left side on md) */}
-                        <div className="flex-1 flex flex-col justify-center relative z-10">
-                          {/* Type badge + date */}
-                          <div className="flex items-center justify-between gap-2 mb-4 md:mb-6">
-                            <span
-                              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] md:text-xs font-black uppercase tracking-[0.2em]"
-                              style={{
-                                background: typeConfig.bg,
-                                color: typeConfig.color,
-                                border: `1px solid ${typeConfig.border}`,
-                              }}
-                            >
-                              {typeConfig.emoji} {typeConfig.label}
-                            </span>
-                            <span className="text-xs md:text-sm !text-white/40 font-semibold shrink-0">
-                              {new Date(item.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
-                            </span>
+                          {/* Details Container (Left side on md) */}
+                          <div className="flex-1 flex flex-col justify-center relative z-10">
+                            {/* Type badge + date */}
+                            <div className="flex items-center justify-between gap-2 mb-4 md:mb-6">
+                              <span
+                                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] md:text-xs font-black uppercase tracking-[0.2em]"
+                                style={{
+                                  background: typeConfig.bg,
+                                  color: typeConfig.color,
+                                  border: `1px solid ${typeConfig.border}`,
+                                }}
+                              >
+                                {typeConfig.emoji} {typeConfig.label}
+                              </span>
+                              <span className="text-xs md:text-sm !text-white/40 font-semibold shrink-0">
+                                {new Date(item.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+                              </span>
+                            </div>
+
+                            {/* Title */}
+                            <h4 className="text-xl md:text-3xl font-bold !text-white leading-snug mb-3 line-clamp-2">
+                              {item.title}
+                            </h4>
+
+                            {/* Description */}
+                            <p className="text-base md:text-lg !text-white/60 font-medium leading-relaxed line-clamp-4">
+                              {item.short_description || item.description}
+                            </p>
+
+                            <div className="mt-auto pt-4">
+                              {/* Event-specific meta */}
+                              {item.type === 'event' && item.meta?.event_date && (
+                                <div className="flex items-center gap-3 mt-3 text-xs md:text-sm text-[#9667E0] font-semibold">
+                                  <span>📅 {new Date(item.meta.event_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                                  {item.meta?.location && <span>📍 {item.meta.location}</span>}
+                                </div>
+                              )}
+
+                              {/* Project tech stack */}
+                              {item.type === 'project' && item.meta?.tech_stack?.length > 0 && (
+                                <div className="flex flex-wrap gap-1 mt-3">
+                                  {item.meta.tech_stack.slice(0, 3).map((t: string) => (
+                                    <span key={t} className="px-2 py-0.5 text-[10px] md:text-xs font-bold bg-[#EEEAFD] text-[#4B2C82] rounded-full">{t}</span>
+                                  ))}
+                                  {item.meta.tech_stack.length > 3 && (
+                                    <span className="px-2 py-0.5 text-[10px] md:text-xs font-bold bg-[#EEEAFD] text-[#4B2C82] rounded-full">+{item.meta.tech_stack.length - 3}</span>
+                                  )}
+                                </div>
+                              )}
+
+                              {/* Blog category */}
+                              {item.type === 'blog' && item.meta?.category && (
+                                <div className="mt-3">
+                                  <span className="px-2 py-0.5 text-[10px] md:text-xs font-bold bg-orange-50 text-orange-600 rounded-full">{item.meta.category}</span>
+                                </div>
+                              )}
+
+                              {/* Register Soon button — events only */}
+                              {item.type === 'event' && (
+                                <div className="mt-5">
+                                  <button
+                                    onClick={(e) => { e.stopPropagation(); navigate('/events'); }}
+                                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs md:text-sm font-black uppercase tracking-widest text-white border border-white/20 hover:border-[#9667E0] hover:bg-[#9667E0]/20 transition-all duration-300"
+                                    style={{ background: 'rgba(150,103,224,0.15)' }}
+                                  >
+                                    🔔 Register Soon
+                                  </button>
+                                </div>
+                              )}
+                            </div>
                           </div>
 
-                          {/* Title */}
-                          <h4 className="text-xl md:text-3xl font-bold !text-white leading-snug mb-3 line-clamp-2">
-                            {item.title}
-                          </h4>
-
-                          {/* Description */}
-                          <p className="text-base md:text-lg !text-white/60 font-medium leading-relaxed line-clamp-4">
-                            {item.short_description || item.description}
-                          </p>
-
-                          <div className="mt-auto pt-4">
-                            {/* Event-specific meta */}
-                            {item.type === 'event' && item.meta?.event_date && (
-                              <div className="flex items-center gap-3 mt-3 text-xs md:text-sm text-[#9667E0] font-semibold">
-                                <span>📅 {new Date(item.meta.event_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                                {item.meta?.location && <span>📍 {item.meta.location}</span>}
-                              </div>
-                            )}
-
-                            {/* Project tech stack */}
-                            {item.type === 'project' && item.meta?.tech_stack?.length > 0 && (
-                              <div className="flex flex-wrap gap-1 mt-3">
-                                {item.meta.tech_stack.slice(0, 3).map((t: string) => (
-                                  <span key={t} className="px-2 py-0.5 text-[10px] md:text-xs font-bold bg-[#EEEAFD] text-[#4B2C82] rounded-full">{t}</span>
-                                ))}
-                                {item.meta.tech_stack.length > 3 && (
-                                  <span className="px-2 py-0.5 text-[10px] md:text-xs font-bold bg-[#EEEAFD] text-[#4B2C82] rounded-full">+{item.meta.tech_stack.length - 3}</span>
-                                )}
-                              </div>
-                            )}
-
-                            {/* Blog category */}
-                            {item.type === 'blog' && item.meta?.category && (
-                              <div className="mt-3">
-                                <span className="px-2 py-0.5 text-[10px] md:text-xs font-bold bg-orange-50 text-orange-600 rounded-full">{item.meta.category}</span>
-                              </div>
-                            )}
-
-                            {/* Register Soon button — events only */}
-                            {item.type === 'event' && (
-                              <div className="mt-5">
-                                <button
-                                  onClick={(e) => { e.stopPropagation(); navigate('/events'); }}
-                                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs md:text-sm font-black uppercase tracking-widest text-white border border-white/20 hover:border-[#9667E0] hover:bg-[#9667E0]/20 transition-all duration-300"
-                                  style={{ background: 'rgba(150,103,224,0.15)' }}
-                                >
-                                  🔔 Register Soon
-                                </button>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Image Container (Right side on md) */}
-                        {item.image_url && (
-                          <div className="w-full md:w-[40%] h-48 md:h-auto rounded-xl overflow-hidden relative z-10 shrink-0">
-                            <img
-                              loading="lazy"
-                              src={item.image_url}
-                              alt={item.title}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
-                          </div>
-                        )}
-                      </motion.div>
-                    );
-                  })}
+                          {/* Image Container (Right side on md) */}
+                          {item.image_url && (
+                            <div className="w-full md:w-[40%] h-48 md:h-auto rounded-xl overflow-hidden relative z-10 shrink-0">
+                              <img
+                                loading="lazy"
+                                src={item.image_url}
+                                alt={item.title}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                              />
+                            </div>
+                          )}
+                        </motion.div>
+                      );
+                    })}
                   </div>
 
                 </div>
@@ -900,7 +865,7 @@ const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="bg-white rounded-2xl p-8 md:p-10 border border-[#E0D4F5] shadow-sm hover:shadow-lg hover:border-[#9667E0]/40 transition-all"
+                className="bg-white rounded-2xl p-8 md:p-10 border border-[#E0D4F5] shadow-sm hover:shadow-lg hover:border-[#9667E0]/40 transition-all h-full flex flex-col min-h-[280px]"
               >
                 <div className="w-12 h-12 rounded-xl bg-[#1A0B2E] flex items-center justify-center mb-5">
                   <Rocket size={22} className="text-white" />
@@ -916,7 +881,7 @@ const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="bg-white rounded-2xl p-8 md:p-10 border border-[#E0D4F5] shadow-sm hover:shadow-lg hover:border-[#9667E0]/40 transition-all"
+                className="bg-white rounded-2xl p-8 md:p-10 border border-[#E0D4F5] shadow-sm hover:shadow-lg hover:border-[#9667E0]/40 transition-all h-full flex flex-col min-h-[280px]"
               >
                 <div className="w-12 h-12 rounded-xl bg-[#1A0B2E] flex items-center justify-center mb-5">
                   <Eye size={22} className="text-white" />
@@ -1049,7 +1014,6 @@ const Home = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
             {[
               { title: 'Explore Our Events', desc: 'Workshops, hackathons, tech talks and more.', path: '/events', emoji: '📅' },
-              { title: 'View Student Projects', desc: 'Real-world AI/ML projects by our members.', path: '/projects', emoji: '🚀' },
               { title: 'Meet Our Alumni', desc: 'Graduates making impact in data science.', path: '/alumni', emoji: '🎓' },
               { title: 'Browse the Gallery', desc: 'Photos and highlights from club activities.', path: '/gallery', emoji: '📸' },
             ].map((item, idx) => (

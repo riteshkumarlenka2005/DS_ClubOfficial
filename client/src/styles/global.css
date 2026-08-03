@@ -12,6 +12,7 @@
 }
 
 html, body {
+  background-color: #F4F1EA;
 }
 
 body {
@@ -19,7 +20,7 @@ body {
   margin: 0;
   padding: 0;
   color: var(--text-main);
-  background-color: var(--pure-white);
+  background-color: #F4F1EA;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -webkit-overflow-scrolling: touch;
