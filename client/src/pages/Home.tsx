@@ -587,6 +587,137 @@ const Home = () => {
         </div>
       </section>
 
+      {/* ── Who We Are Section ── */}
+      <section className="relative pt-16 lg:pt-20 pb-0 overflow-hidden bg-white z-10 border-t border-[#E0D4F5] min-h-screen flex flex-col justify-between">
+        {/* Full-width Door Overlay */}
+        <motion.div
+          initial={{ x: "0%" }}
+          whileInView={{ x: "-105%" }}
+          viewport={{ once: false, margin: "0px 0px -15% 0px" }}
+          transition={{ duration: 1.8, ease: [0.77, 0, 0.175, 1] }}
+          className="absolute top-0 bottom-0 left-0 w-full bg-[#222F30] z-50 shadow-[30px_0_50px_rgba(0,0,0,0.5)] pointer-events-none"
+        />
+
+        <div className="container mx-auto max-w-6xl px-4 md:px-6 relative z-40 mb-10 lg:mb-12 pt-4 lg:pt-0">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-center mb-10 lg:mb-14"
+          >
+            <h2 
+              className="font-black leading-[1.0] tracking-tight uppercase"
+              style={{
+                fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
+                color: '#1A0B2E',
+              }}
+            >
+              WHO WE ARE
+            </h2>
+            <div className="w-24 h-1 bg-[#9667E0] mx-auto mt-4 rounded-full"></div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <p className="text-[#2D164B] text-base md:text-xl font-medium leading-relaxed opacity-80">
+              The Data Science Club at GIET University is a student-driven community where curiosity meets innovation. We bring together aspiring data scientists, AI enthusiasts, developers, designers, and problem-solvers to learn, collaborate, and build impactful projects that solve real-world challenges.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* 3 Cards Edge-to-Edge Grid */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 relative z-40">
+          
+          {/* Card 1: Learn */}
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.1 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="bg-[#DDF8A1] aspect-square md:aspect-auto md:h-[320px] lg:h-[360px] p-6 lg:p-10 flex flex-col justify-between group"
+          >
+            <div className="flex justify-between items-start">
+              <div className="w-12 h-12 lg:w-16 lg:h-16 opacity-80">
+                {/* Sunburst Icon */}
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1A0B2E" strokeWidth="1" className="w-full h-full group-hover:scale-110 group-hover:rotate-45 transition-all duration-700">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v20M17 5l-10 14M22 12H2M19.07 19.07L4.93 4.93M5 17l14-10" />
+                </svg>
+              </div>
+              <span className="text-[#1A0B2E] font-mono text-sm md:text-base font-bold">01.</span>
+            </div>
+            <div>
+              <h3 className="text-3xl md:text-4xl font-medium text-[#1A0B2E] mb-3 tracking-tight">Learn</h3>
+              <p className="text-[#1A0B2E]/80 text-sm md:text-base font-medium max-w-xs leading-relaxed">
+                Master the latest tools, frameworks, and concepts through intensive hands-on workshops and peer sessions.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Card 2: Build */}
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="bg-[#B49DF8] aspect-square md:aspect-auto md:h-[320px] lg:h-[360px] p-6 lg:p-10 flex flex-col justify-between group"
+          >
+            <div className="flex justify-between items-start">
+              <div className="w-12 h-12 lg:w-16 lg:h-16 opacity-80">
+                {/* Concentric Hexagon Icon */}
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1A0B2E" strokeWidth="1" className="w-full h-full group-hover:scale-110 transition-transform duration-700">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2L3 7l0 10 9 5 9-5 0-10-9-5z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 5.5L6 9l0 6 6 3.5 6-3.5 0-6-6-3.5z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9L9 11l0 2 3 2 3-2 0-2-3-2z" />
+                </svg>
+              </div>
+              <span className="text-[#1A0B2E] font-mono text-sm md:text-base font-bold">02.</span>
+            </div>
+            <div>
+              <h3 className="text-3xl md:text-4xl font-medium text-[#1A0B2E] mb-3 tracking-tight">Build</h3>
+              <p className="text-[#1A0B2E]/80 text-sm md:text-base font-medium max-w-xs leading-relaxed">
+                Apply your knowledge to solve real-world problems and create impactful data-driven applications.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Card 3: Grow */}
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.1 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="bg-[#F1F0E9] aspect-square md:aspect-auto md:h-[320px] lg:h-[360px] p-6 lg:p-10 flex flex-col justify-between group"
+          >
+            <div className="flex justify-between items-start">
+              <div className="w-12 h-12 lg:w-16 lg:h-16 opacity-80">
+                {/* Geometric Network Icon */}
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1A0B2E" strokeWidth="1" className="w-full h-full group-hover:scale-110 transition-transform duration-700">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2L4 7l8 5 8-5-8-5z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 12l-8 5 8 5 8-5-8-5z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M20 7v10" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v20" />
+                </svg>
+              </div>
+              <span className="text-[#1A0B2E] font-mono text-sm md:text-base font-bold">03.</span>
+            </div>
+            <div>
+              <h3 className="text-3xl md:text-4xl font-medium text-[#1A0B2E] mb-3 tracking-tight">Grow</h3>
+              <p className="text-[#1A0B2E]/80 text-sm md:text-base font-medium max-w-xs leading-relaxed">
+                Expand your professional network, build your portfolio, and prepare for a successful career in tech.
+              </p>
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
+
       {/* ── Latest Updates Section ── */}
       <section
         className="relative py-16 md:py-32 px-4 md:px-6 overflow-hidden z-20 shadow-[0_-20px_50px_rgba(0,0,0,0.1)]"
