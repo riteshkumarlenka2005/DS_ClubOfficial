@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { TechnicalArsenal } from '../components/TechnicalArsenal';
 import SEO from '../components/SEO';
 import LightTunnelBackground from '../components/LightTunnelBackground';
 import { useApi } from '../hooks/useApi';
@@ -14,6 +15,58 @@ import {
   TrendingUp, CheckCircle2, FlaskConical, Globe, Stethoscope, CloudRain, Focus, Scale, Atom,
   Eye
 } from 'lucide-react';
+
+/* ── Animated Counter Hook ── */
+function useCountUp(target: number, duration = 2000, start = false) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    setCount(0);
+    const startTime = performance.now();
+    const step = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      setCount(Math.floor(ease * target));
+      if (progress < 1) requestAnimationFrame(step);
+      else setCount(target);
+    };
+    requestAnimationFrame(step);
+  }, [start, target, duration]);
+  return count;
+}
+
+/* ── Single Stat Card ── */
+function StatCard({ value, suffix, label, delay }: { value: number; suffix: string; label: string; delay: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [started, setStarted] = useState(false);
+  const count = useCountUp(value, 2000, started);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setStarted(true); else setStarted(false); },
+      { threshold: 0.5 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, amount: 0.5 }}
+      transition={{ duration: 0.7, delay }}
+      className="flex flex-col items-center text-center group"
+    >
+      <span className="text-3xl md:text-4xl font-black tracking-tighter leading-none text-white tabular-nums transition-transform duration-300 group-hover:scale-110">
+        {count}{suffix}
+      </span>
+      <span className="mt-1.5 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-white/60">{label}</span>
+    </motion.div>
+  );
+}
 
 /**
  * Custom hook to handle responsive state safely with SSR/Hydration awareness.
@@ -194,89 +247,6 @@ const LifecycleSection = () => {
         </div>
       </div>
     </div>
-  );
-};
-
-/**
- * Tangible Outcomes / Practical Impact Section
- */
-const PracticalImpactSection = () => {
-  const isMobile = useIsMobile();
-  const impacts = [
-    {
-      title: "Campus Mobility Optimizer",
-      outcome: "Deployed an edge-CV model to analyze pedestrian density and optimize corridor light usage.",
-      tools: ["Python", "OpenCV", "FastAPI"],
-      icon: Eye
-    },
-    {
-      title: "Student Success Engine",
-      outcome: "Engineered a predictive model identifying dropout risks with 88% precision using academic trends.",
-      tools: ["Pandas", "Sklearn", "Stats"],
-      icon: FlaskConical
-    },
-    {
-      title: "Regional Weather Bot",
-      outcome: "Built a transformer-based forecaster specialized for Gunupur's micro-climate patterns.",
-      tools: ["LSTM", "NumPy", "GCP"],
-      icon: Cloud
-    },
-    {
-      title: "Club Intelligence Hub",
-      outcome: "Developed an internal ERP to automate event RSVPs and merit tracking for 200+ members.",
-      tools: ["React", "Firebase", "SQL"],
-      icon: Globe
-    }
-  ];
-
-  return (
-    <section className="py-12 sm:py-24 md:py-40 px-4 sm:px-6 bg-gradient-to-b from-white to-[#EEEAFD]/30">
-      <div className="container mx-auto">
-        <div className="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-end gap-6">
-          <div className="max-w-2xl">
-            <span className="text-[10px] md:text-xs font-black text-[#9667E0] uppercase tracking-[0.4em] mb-4 block">Proof of Concept</span>
-            <h2 className="text-3xl md:text-6xl font-black text-[#1A0B2E] leading-tight">BEYOND BUZZWORDS: <br /><span className="text-[#9667E0]">REAL IMPACT</span></h2>
-          </div>
-          <p className="text-[#2D164B] max-w-sm font-bold opacity-70 text-sm md:text-base leading-relaxed">
-            We don't just talk about Data Science. We build, ship, and iterate on solutions that solve local problems.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-          {impacts.map((item, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, x: idx % 2 === 0 ? -20 : 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -10 }}
-              className="bg-white p-8 md:p-12 rounded-[3rem] border border-[#D8CAF6] shadow-sm flex flex-col md:flex-row gap-8 items-start group hover:border-[#9667E0] transition-all"
-            >
-              <div className="p-5 md:p-7 bg-[#1A0B2E] rounded-[2rem] text-white shrink-0 shadow-xl group-hover:scale-110 group-hover:bg-[#4B2C82] transition-all">
-                <item.icon size={isMobile ? 24 : 36} />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-xl md:text-2xl font-black text-[#1A0B2E] mb-3 group-hover:text-[#9667E0] transition-colors">{item.title}</h3>
-                <p className="text-[#2D164B] text-sm md:text-lg font-bold opacity-80 leading-relaxed mb-6">
-                  {item.outcome}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {item.tools.map(tool => (
-                    <span key={tool} className="px-4 py-1.5 bg-[#EEEAFD] text-[#1A0B2E] rounded-full text-[9px] md:text-[11px] font-black uppercase tracking-widest border border-[#D8CAF6]">
-                      {tool}
-                    </span>
-                  ))}
-                  <div className="ml-auto flex items-center gap-2 text-[#9667E0]">
-                    <CheckCircle2 size={16} />
-                    <span className="text-[10px] font-black uppercase tracking-widest">Deployed</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
   );
 };
 
@@ -587,137 +557,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── Who We Are Section ── */}
-      <section className="relative pt-16 lg:pt-20 pb-0 overflow-hidden bg-white z-10 border-t border-[#E0D4F5] min-h-screen flex flex-col justify-between">
-        {/* Full-width Door Overlay */}
-        <motion.div
-          initial={{ x: "0%" }}
-          whileInView={{ x: "-105%" }}
-          viewport={{ once: false, margin: "0px 0px -15% 0px" }}
-          transition={{ duration: 1.8, ease: [0.77, 0, 0.175, 1] }}
-          className="absolute top-0 bottom-0 left-0 w-full bg-[#222F30] z-50 shadow-[30px_0_50px_rgba(0,0,0,0.5)] pointer-events-none"
-        />
-
-        <div className="container mx-auto max-w-6xl px-4 md:px-6 relative z-40 mb-10 lg:mb-12 pt-4 lg:pt-0">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-center mb-10 lg:mb-14"
-          >
-            <h2 
-              className="font-black leading-[1.0] tracking-tight uppercase"
-              style={{
-                fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
-                color: '#1A0B2E',
-              }}
-            >
-              WHO WE ARE
-            </h2>
-            <div className="w-24 h-1 bg-[#9667E0] mx-auto mt-4 rounded-full"></div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="max-w-4xl mx-auto text-center"
-          >
-            <p className="text-[#2D164B] text-base md:text-xl font-medium leading-relaxed opacity-80">
-              The Data Science Club at GIET University is a student-driven community where curiosity meets innovation. We bring together aspiring data scientists, AI enthusiasts, developers, designers, and problem-solvers to learn, collaborate, and build impactful projects that solve real-world challenges.
-            </p>
-          </motion.div>
-        </div>
-
-        {/* 3 Cards Edge-to-Edge Grid */}
-        <div className="w-full grid grid-cols-1 md:grid-cols-3 relative z-40">
-          
-          {/* Card 1: Learn */}
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.1 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="bg-[#DDF8A1] aspect-square md:aspect-auto md:h-[320px] lg:h-[360px] p-6 lg:p-10 flex flex-col justify-between group"
-          >
-            <div className="flex justify-between items-start">
-              <div className="w-12 h-12 lg:w-16 lg:h-16 opacity-80">
-                {/* Sunburst Icon */}
-                <svg viewBox="0 0 24 24" fill="none" stroke="#1A0B2E" strokeWidth="1" className="w-full h-full group-hover:scale-110 group-hover:rotate-45 transition-all duration-700">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v20M17 5l-10 14M22 12H2M19.07 19.07L4.93 4.93M5 17l14-10" />
-                </svg>
-              </div>
-              <span className="text-[#1A0B2E] font-mono text-sm md:text-base font-bold">01.</span>
-            </div>
-            <div>
-              <h3 className="text-3xl md:text-4xl font-medium text-[#1A0B2E] mb-3 tracking-tight">Learn</h3>
-              <p className="text-[#1A0B2E]/80 text-sm md:text-base font-medium max-w-xs leading-relaxed">
-                Master the latest tools, frameworks, and concepts through intensive hands-on workshops and peer sessions.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Card 2: Build */}
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.1 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="bg-[#B49DF8] aspect-square md:aspect-auto md:h-[320px] lg:h-[360px] p-6 lg:p-10 flex flex-col justify-between group"
-          >
-            <div className="flex justify-between items-start">
-              <div className="w-12 h-12 lg:w-16 lg:h-16 opacity-80">
-                {/* Concentric Hexagon Icon */}
-                <svg viewBox="0 0 24 24" fill="none" stroke="#1A0B2E" strokeWidth="1" className="w-full h-full group-hover:scale-110 transition-transform duration-700">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2L3 7l0 10 9 5 9-5 0-10-9-5z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 5.5L6 9l0 6 6 3.5 6-3.5 0-6-6-3.5z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9L9 11l0 2 3 2 3-2 0-2-3-2z" />
-                </svg>
-              </div>
-              <span className="text-[#1A0B2E] font-mono text-sm md:text-base font-bold">02.</span>
-            </div>
-            <div>
-              <h3 className="text-3xl md:text-4xl font-medium text-[#1A0B2E] mb-3 tracking-tight">Build</h3>
-              <p className="text-[#1A0B2E]/80 text-sm md:text-base font-medium max-w-xs leading-relaxed">
-                Apply your knowledge to solve real-world problems and create impactful data-driven applications.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Card 3: Grow */}
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="bg-[#F1F0E9] aspect-square md:aspect-auto md:h-[320px] lg:h-[360px] p-6 lg:p-10 flex flex-col justify-between group"
-          >
-            <div className="flex justify-between items-start">
-              <div className="w-12 h-12 lg:w-16 lg:h-16 opacity-80">
-                {/* Geometric Network Icon */}
-                <svg viewBox="0 0 24 24" fill="none" stroke="#1A0B2E" strokeWidth="1" className="w-full h-full group-hover:scale-110 transition-transform duration-700">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2L4 7l8 5 8-5-8-5z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 12l-8 5 8 5 8-5-8-5z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M20 7v10" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v20" />
-                </svg>
-              </div>
-              <span className="text-[#1A0B2E] font-mono text-sm md:text-base font-bold">03.</span>
-            </div>
-            <div>
-              <h3 className="text-3xl md:text-4xl font-medium text-[#1A0B2E] mb-3 tracking-tight">Grow</h3>
-              <p className="text-[#1A0B2E]/80 text-sm md:text-base font-medium max-w-xs leading-relaxed">
-                Expand your professional network, build your portfolio, and prepare for a successful career in tech.
-              </p>
-            </div>
-          </motion.div>
-
-        </div>
-      </section>
-
       {/* ── Latest Updates Section ── */}
       <section
         className="relative py-16 md:py-32 px-4 md:px-6 overflow-hidden z-20 shadow-[0_-20px_50px_rgba(0,0,0,0.1)]"
@@ -965,66 +804,178 @@ const Home = () => {
         }} />
       </section>
 
+      {/* ── Who We Are Section ── */}
+      <section className="relative pt-16 lg:pt-20 pb-0 overflow-hidden bg-white z-10 border-t border-[#E0D4F5] min-h-screen flex flex-col justify-between">
+        {/* Full-width Door Overlay */}
+        <motion.div
+          initial={{ x: "0%" }}
+          whileInView={{ x: "-105%" }}
+          viewport={{ once: false, margin: "0px 0px -15% 0px" }}
+          transition={{ duration: 1.8, ease: [0.77, 0, 0.175, 1] }}
+          className="absolute top-0 bottom-0 left-0 w-full bg-[#222F30] z-50 shadow-[30px_0_50px_rgba(0,0,0,0.5)] pointer-events-none"
+        />
+
+        <div className="container mx-auto max-w-6xl px-4 md:px-6 relative z-40 mb-10 lg:mb-12 pt-4 lg:pt-0">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-center mb-10 lg:mb-14"
+          >
+            <h2 
+              className="font-black leading-[1.0] tracking-tight uppercase"
+              style={{
+                fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
+                color: '#1A0B2E',
+              }}
+            >
+              WHO WE ARE
+            </h2>
+            <div className="w-24 h-1 bg-[#9667E0] mx-auto mt-4 rounded-full"></div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <p className="text-[#2D164B] text-base md:text-xl font-medium leading-relaxed opacity-80">
+              The Data Science Club at GIET University is a student-driven community where curiosity meets innovation. We bring together aspiring data scientists, AI enthusiasts, developers, designers, and problem-solvers to learn, collaborate, and build impactful projects that solve real-world challenges.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* 3 Cards Edge-to-Edge Grid */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 relative z-40">
+          
+          {/* Card 1: Learn */}
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.1 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="bg-[#DDF8A1] aspect-square md:aspect-auto md:h-[320px] lg:h-[360px] p-6 lg:p-10 flex flex-col justify-between group"
+          >
+            <div className="flex justify-between items-start">
+              <div className="w-12 h-12 lg:w-16 lg:h-16 opacity-80">
+                {/* Sunburst Icon */}
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1A0B2E" strokeWidth="1" className="w-full h-full group-hover:scale-110 group-hover:rotate-45 transition-all duration-700">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v20M17 5l-10 14M22 12H2M19.07 19.07L4.93 4.93M5 17l14-10" />
+                </svg>
+              </div>
+              {/* Distressed hatched number */}
+              <svg width="80" height="80" viewBox="0 0 80 80" className="opacity-70">
+                <defs>
+                  <pattern id="hatch1" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(45)">
+                    <line x1="0" y1="0" x2="0" y2="4" stroke="#1A0B2E" strokeWidth="1.8"/>
+                  </pattern>
+                  <mask id="mask1">
+                    <text x="50%" y="80%" textAnchor="middle" fontSize="82" fontFamily="Georgia, serif" fontWeight="900" fill="white">1</text>
+                  </mask>
+                </defs>
+                <rect width="80" height="80" fill="url(#hatch1)" mask="url(#mask1)"/>
+              </svg>
+            </div>
+            <div>
+              <h3 className="text-3xl md:text-4xl font-medium text-[#1A0B2E] mb-3 tracking-tight">Learn</h3>
+              <p className="text-[#1A0B2E]/80 text-sm md:text-base font-medium max-w-xs leading-relaxed">
+                Master the latest tools, frameworks, and concepts through intensive hands-on workshops and peer sessions.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Card 2: Build */}
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="bg-[#B49DF8] aspect-square md:aspect-auto md:h-[320px] lg:h-[360px] p-6 lg:p-10 flex flex-col justify-between group"
+          >
+            <div className="flex justify-between items-start">
+              <div className="w-12 h-12 lg:w-16 lg:h-16 opacity-80">
+                {/* Concentric Hexagon Icon */}
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1A0B2E" strokeWidth="1" className="w-full h-full group-hover:scale-110 transition-transform duration-700">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2L3 7l0 10 9 5 9-5 0-10-9-5z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 5.5L6 9l0 6 6 3.5 6-3.5 0-6-6-3.5z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9L9 11l0 2 3 2 3-2 0-2-3-2z" />
+                </svg>
+              </div>
+              {/* Distressed hatched number */}
+              <svg width="80" height="80" viewBox="0 0 80 80" className="opacity-70">
+                <defs>
+                  <pattern id="hatch2" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(45)">
+                    <line x1="0" y1="0" x2="0" y2="4" stroke="#1A0B2E" strokeWidth="1.8"/>
+                  </pattern>
+                  <mask id="mask2">
+                    <text x="50%" y="80%" textAnchor="middle" fontSize="82" fontFamily="Georgia, serif" fontWeight="900" fill="white">2</text>
+                  </mask>
+                </defs>
+                <rect width="80" height="80" fill="url(#hatch2)" mask="url(#mask2)"/>
+              </svg>
+            </div>
+            <div>
+              <h3 className="text-3xl md:text-4xl font-medium text-[#1A0B2E] mb-3 tracking-tight">Build</h3>
+              <p className="text-[#1A0B2E]/80 text-sm md:text-base font-medium max-w-xs leading-relaxed">
+                Apply your knowledge to solve real-world problems and create impactful data-driven applications.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Card 3: Grow */}
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.1 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="bg-[#F1F0E9] aspect-square md:aspect-auto md:h-[320px] lg:h-[360px] p-6 lg:p-10 flex flex-col justify-between group"
+          >
+            <div className="flex justify-between items-start">
+              <div className="w-12 h-12 lg:w-16 lg:h-16 opacity-80">
+                {/* Geometric Network Icon */}
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1A0B2E" strokeWidth="1" className="w-full h-full group-hover:scale-110 transition-transform duration-700">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2L4 7l8 5 8-5-8-5z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 12l-8 5 8 5 8-5-8-5z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M20 7v10" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v20" />
+                </svg>
+              </div>
+              {/* Distressed hatched number */}
+              <svg width="80" height="80" viewBox="0 0 80 80" className="opacity-70">
+                <defs>
+                  <pattern id="hatch3" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(45)">
+                    <line x1="0" y1="0" x2="0" y2="4" stroke="#1A0B2E" strokeWidth="1.8"/>
+                  </pattern>
+                  <mask id="mask3">
+                    <text x="50%" y="80%" textAnchor="middle" fontSize="82" fontFamily="Georgia, serif" fontWeight="900" fill="white">3</text>
+                  </mask>
+                </defs>
+                <rect width="80" height="80" fill="url(#hatch3)" mask="url(#mask3)"/>
+              </svg>
+            </div>
+            <div>
+              <h3 className="text-3xl md:text-4xl font-medium text-[#1A0B2E] mb-3 tracking-tight">Grow</h3>
+              <p className="text-[#1A0B2E]/80 text-sm md:text-base font-medium max-w-xs leading-relaxed">
+                Expand your professional network, build your portfolio, and prepare for a successful career in tech.
+              </p>
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
+
+
+
       {/* Main Content Sections */}
       <section
         className="relative py-24 md:py-40 px-4 md:px-6 overflow-hidden z-20"
         style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #EEEAFD 40%, #D8CAF6 100%)' }}
       >
         <div className="container mx-auto relative z-10">
-          {/* ── Our Mission & Vision ── */}
-          <div className="mb-24 md:mb-40">
-            <div className="text-center mb-12 md:mb-16">
-              <span className="text-[10px] md:text-xs font-black text-[#9667E0] uppercase tracking-[0.4em] mb-4 block">Purpose Driven</span>
-              <motion.h2
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.1 }}
-                className="font-black leading-[1.0] tracking-tight mb-4 text-center uppercase"
-                style={{
-                  fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
-                  color: '#1A0B2E',
-                }}
-              >
-                OUR MISSION & VISION
-              </motion.h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
-              {/* Mission */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="bg-white rounded-2xl p-8 md:p-10 border border-[#E0D4F5] shadow-sm hover:shadow-lg hover:border-[#9667E0]/40 transition-all h-full flex flex-col min-h-[280px]"
-              >
-                <div className="w-12 h-12 rounded-xl bg-[#1A0B2E] flex items-center justify-center mb-5">
-                  <Rocket size={22} className="text-white" />
-                </div>
-                <h3 className="text-xl md:text-2xl font-extrabold text-[#1A0B2E] mb-3 tracking-tight">Our Mission</h3>
-                <p className="text-[#2D164B] text-sm md:text-base font-medium leading-relaxed opacity-80">
-                  To empower students with cutting-edge data science skills through hands-on learning, collaborative projects, and industry exposure — transforming curious minds into confident data professionals ready to solve real-world problems.
-                </p>
-              </motion.div>
-              {/* Vision */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.15 }}
-                className="bg-white rounded-2xl p-8 md:p-10 border border-[#E0D4F5] shadow-sm hover:shadow-lg hover:border-[#9667E0]/40 transition-all h-full flex flex-col min-h-[280px]"
-              >
-                <div className="w-12 h-12 rounded-xl bg-[#1A0B2E] flex items-center justify-center mb-5">
-                  <Eye size={22} className="text-white" />
-                </div>
-                <h3 className="text-xl md:text-2xl font-extrabold text-[#1A0B2E] mb-3 tracking-tight">Our Vision</h3>
-                <p className="text-[#2D164B] text-sm md:text-base font-medium leading-relaxed opacity-80">
-                  To build GIET University's most impactful student community — a knowledge hub where innovation meets execution, producing future-ready analysts, engineers, and researchers who lead the data revolution.
-                </p>
-              </motion.div>
-            </div>
-          </div>
-
           {/* ── What We Do ── */}
           <div className="mb-24 md:mb-48">
             <div className="text-center mb-12 md:mb-16">
@@ -1114,8 +1065,77 @@ const Home = () => {
           </div>
 
 
-          {/* Practical Impact Section */}
-          <PracticalImpactSection />
+          {/* ── Stats / Impact Numbers Section ── */}
+          <div className="relative -mx-4 md:-mx-6 my-12 bg-[#050505] py-6 md:py-8 px-4 md:px-6 overflow-hidden">
+            {/* Thin top & bottom borders */}
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+            <div className="container mx-auto max-w-6xl relative z-10">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-4">
+                <StatCard value={200} suffix="+" label="Active Members" delay={0} />
+                <StatCard value={12}  suffix="+" label="Events Hosted"  delay={0.1} />
+                <StatCard value={15}  suffix="+" label="Projects Built" delay={0.2} />
+                <StatCard value={5}   suffix="+" label="Workshops Run"  delay={0.3} />
+              </div>
+            </div>
+          </div>
+
+          <TechnicalArsenal />
+
+          {/* ── Our Mission & Vision ── */}
+          <div className="mb-24 md:mb-40">
+            <div className="text-center mb-12 md:mb-16">
+              <span className="text-[10px] md:text-xs font-black text-[#9667E0] uppercase tracking-[0.4em] mb-4 block">Purpose Driven</span>
+              <motion.h2
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className="font-black leading-[1.0] tracking-tight mb-4 text-center uppercase"
+                style={{
+                  fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
+                  color: '#1A0B2E',
+                }}
+              >
+                OUR MISSION & VISION
+              </motion.h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+              {/* Mission */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="bg-white rounded-2xl p-8 md:p-10 border border-[#E0D4F5] shadow-sm hover:shadow-lg hover:border-[#9667E0]/40 transition-all h-full flex flex-col min-h-[280px]"
+              >
+                <div className="w-12 h-12 rounded-xl bg-[#1A0B2E] flex items-center justify-center mb-5">
+                  <Rocket size={22} className="text-white" />
+                </div>
+                <h3 className="text-xl md:text-2xl font-extrabold text-[#1A0B2E] mb-3 tracking-tight">Our Mission</h3>
+                <p className="text-[#2D164B] text-sm md:text-base font-medium leading-relaxed opacity-80">
+                  To empower students with cutting-edge data science skills through hands-on learning, collaborative projects, and industry exposure — transforming curious minds into confident data professionals ready to solve real-world problems.
+                </p>
+              </motion.div>
+              {/* Vision */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.15 }}
+                className="bg-white rounded-2xl p-8 md:p-10 border border-[#E0D4F5] shadow-sm hover:shadow-lg hover:border-[#9667E0]/40 transition-all h-full flex flex-col min-h-[280px]"
+              >
+                <div className="w-12 h-12 rounded-xl bg-[#1A0B2E] flex items-center justify-center mb-5">
+                  <Eye size={22} className="text-white" />
+                </div>
+                <h3 className="text-xl md:text-2xl font-extrabold text-[#1A0B2E] mb-3 tracking-tight">Our Vision</h3>
+                <p className="text-[#2D164B] text-sm md:text-base font-medium leading-relaxed opacity-80">
+                  To build GIET University's most impactful student community — a knowledge hub where innovation meets execution, producing future-ready analysts, engineers, and researchers who lead the data revolution.
+                </p>
+              </motion.div>
+            </div>
+          </div>
+
 
 
 
