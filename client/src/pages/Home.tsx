@@ -823,7 +823,7 @@ const Home = () => {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="text-center mb-10 lg:mb-14"
           >
-            <h2 
+            <h2
               className="font-black leading-[1.0] tracking-tight uppercase"
               style={{
                 fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
@@ -850,9 +850,9 @@ const Home = () => {
 
         {/* 3 Cards Edge-to-Edge Grid */}
         <div className="w-full grid grid-cols-1 md:grid-cols-3 relative z-40">
-          
+
           {/* Card 1: Learn */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.1 }}
@@ -870,13 +870,13 @@ const Home = () => {
               <svg width="80" height="80" viewBox="0 0 80 80" className="opacity-70">
                 <defs>
                   <pattern id="hatch1" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(45)">
-                    <line x1="0" y1="0" x2="0" y2="4" stroke="#1A0B2E" strokeWidth="1.8"/>
+                    <line x1="0" y1="0" x2="0" y2="4" stroke="#1A0B2E" strokeWidth="1.8" />
                   </pattern>
                   <mask id="mask1">
                     <text x="50%" y="80%" textAnchor="middle" fontSize="82" fontFamily="Georgia, serif" fontWeight="900" fill="white">1</text>
                   </mask>
                 </defs>
-                <rect width="80" height="80" fill="url(#hatch1)" mask="url(#mask1)"/>
+                <rect width="80" height="80" fill="url(#hatch1)" mask="url(#mask1)" />
               </svg>
             </div>
             <div>
@@ -888,7 +888,7 @@ const Home = () => {
           </motion.div>
 
           {/* Card 2: Build */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.1 }}
@@ -908,13 +908,13 @@ const Home = () => {
               <svg width="80" height="80" viewBox="0 0 80 80" className="opacity-70">
                 <defs>
                   <pattern id="hatch2" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(45)">
-                    <line x1="0" y1="0" x2="0" y2="4" stroke="#1A0B2E" strokeWidth="1.8"/>
+                    <line x1="0" y1="0" x2="0" y2="4" stroke="#1A0B2E" strokeWidth="1.8" />
                   </pattern>
                   <mask id="mask2">
                     <text x="50%" y="80%" textAnchor="middle" fontSize="82" fontFamily="Georgia, serif" fontWeight="900" fill="white">2</text>
                   </mask>
                 </defs>
-                <rect width="80" height="80" fill="url(#hatch2)" mask="url(#mask2)"/>
+                <rect width="80" height="80" fill="url(#hatch2)" mask="url(#mask2)" />
               </svg>
             </div>
             <div>
@@ -926,7 +926,7 @@ const Home = () => {
           </motion.div>
 
           {/* Card 3: Grow */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.1 }}
@@ -948,13 +948,13 @@ const Home = () => {
               <svg width="80" height="80" viewBox="0 0 80 80" className="opacity-70">
                 <defs>
                   <pattern id="hatch3" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(45)">
-                    <line x1="0" y1="0" x2="0" y2="4" stroke="#1A0B2E" strokeWidth="1.8"/>
+                    <line x1="0" y1="0" x2="0" y2="4" stroke="#1A0B2E" strokeWidth="1.8" />
                   </pattern>
                   <mask id="mask3">
                     <text x="50%" y="80%" textAnchor="middle" fontSize="82" fontFamily="Georgia, serif" fontWeight="900" fill="white">3</text>
                   </mask>
                 </defs>
-                <rect width="80" height="80" fill="url(#hatch3)" mask="url(#mask3)"/>
+                <rect width="80" height="80" fill="url(#hatch3)" mask="url(#mask3)" />
               </svg>
             </div>
             <div>
@@ -997,70 +997,106 @@ const Home = () => {
                 From intensive workshops to innovation labs — everything we do is designed to accelerate your data science journey.
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {[
-                {
-                  icon: Terminal,
-                  title: 'Workshops & Bootcamps',
-                  desc: 'Intensive training sessions covering Python, SQL, ML frameworks, and advanced data science techniques.',
-                  color: 'linear-gradient(135deg, #F8F7FF 0%, #EEEAFD 100%)',
-                  accent: '#9667E0',
-                },
-                {
-                  icon: BrainCircuit,
-                  title: 'AI/ML Projects',
-                  desc: 'Collaborate on real-world projects applying machine learning to solve practical problems and create impact.',
-                  color: 'linear-gradient(135deg, #F5FFF9 0%, #E6F7ED 100%)',
-                  accent: '#10A37F',
-                },
-                {
-                  icon: Users,
-                  title: 'Speaker Sessions',
-                  desc: 'Learn from industry experts and researchers sharing insights on cutting-edge data science trends and tools.',
-                  color: 'linear-gradient(135deg, #FFF5F7 0%, #FEE2E7 100%)',
-                  accent: '#E11D48',
-                },
-                {
-                  icon: Zap,
-                  title: 'Hackathons & Competitions',
-                  desc: 'Participate in competitions to showcase your skills, win prizes, and gain recognition in the data science community.',
-                  color: 'linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%)',
-                  accent: '#D97706',
-                },
-                {
-                  icon: Atom,
-                  title: 'Peer Learning',
-                  desc: 'Engage in study groups, code reviews, and collaborative learning to strengthen your skills together.',
-                  color: 'linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%)',
-                  accent: '#0284C7',
-                },
-                {
-                  icon: FlaskConical,
-                  title: 'Innovation Lab',
-                  desc: 'Ideate and experiment with emerging technologies and novel approaches to data science challenges.',
-                  color: 'linear-gradient(135deg, #FDF4FF 0%, #FAE8FF 100%)',
-                  accent: '#C026D3',
-                },
-              ].map((card, i) => (
-                <motion.div
-                  key={card.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="group rounded-2xl p-7 md:p-8 border border-[#E0D4F5] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all"
-                  style={{ background: card.color }}
-                >
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-colors"
-                    style={{ backgroundColor: card.accent }}
-                  >
-                    <card.icon size={22} className="text-white" />
-                  </div>
-                  <h4 className="text-base md:text-lg font-extrabold text-[#1A0B2E] mb-2 tracking-tight">{card.title}</h4>
-                  <p className="text-[#2D164B] text-sm font-medium leading-relaxed opacity-70">{card.desc}</p>
-                </motion.div>
-              ))}
+
+            {/* Masonry Archive Grid */}
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-0 border border-[#E0D4F5]">
+
+              {/* Card 1 — Workshops */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0 }}
+                className="group relative border-r border-b border-[#E0D4F5] p-8 md:p-10 flex flex-col items-center justify-center min-h-[280px] md:min-h-[360px] overflow-hidden cursor-default text-center"
+              >
+                <img src="/card_workshops.png" alt="" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-black/55 group-hover:bg-black/65 transition-colors duration-500" />
+                <div className="relative z-10">
+                  <h4 className="text-2xl md:text-3xl font-black mb-3 tracking-tight leading-tight" style={{ color: '#ffffff' }}>Workshops &amp; Bootcamps</h4>
+                  <p className="text-white text-base md:text-lg font-semibold leading-relaxed">Intensive training covering Python, SQL, ML frameworks, and advanced data science techniques.</p>
+                </div>
+              </motion.div>
+
+              {/* Card 2 — AI/ML */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.08 }}
+                className="group relative border-r border-b border-[#E0D4F5] p-8 md:p-10 flex flex-col items-center justify-center min-h-[280px] md:min-h-[360px] overflow-hidden cursor-default text-center"
+              >
+                <img src="/card_ai_ml.png" alt="" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-black/55 group-hover:bg-black/65 transition-colors duration-500" />
+                <div className="relative z-10">
+                  <h4 className="text-2xl md:text-3xl font-black mb-3 tracking-tight leading-tight" style={{ color: '#ffffff' }}>AI / ML Projects</h4>
+                  <p className="text-white text-base md:text-lg font-semibold leading-relaxed">Collaborate on real-world projects applying machine learning to solve practical problems.</p>
+                </div>
+              </motion.div>
+
+              {/* Card 3 — Speaker */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.16 }}
+                className="group relative border-b border-[#E0D4F5] p-8 md:p-10 flex flex-col items-center justify-center min-h-[280px] md:min-h-[360px] overflow-hidden cursor-default text-center col-span-2 lg:col-span-1"
+              >
+                <img src="/card_speaker.png" alt="" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-black/55 group-hover:bg-black/65 transition-colors duration-500" />
+                <div className="relative z-10">
+                  <h4 className="text-2xl md:text-3xl font-black mb-3 tracking-tight leading-tight" style={{ color: '#ffffff' }}>Speaker Sessions</h4>
+                  <p className="text-white text-base md:text-lg font-semibold leading-relaxed">Learn from industry experts sharing insights on cutting-edge data science trends.</p>
+                </div>
+              </motion.div>
+
+              {/* Card 4 — Hackathon */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.24 }}
+                className="group relative border-r border-[#E0D4F5] p-8 md:p-10 flex flex-col items-center justify-center min-h-[240px] md:min-h-[300px] overflow-hidden cursor-default text-center col-span-2 lg:col-span-1"
+              >
+                <img src="/card_hackathon.png" alt="" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-black/55 group-hover:bg-black/65 transition-colors duration-500" />
+                <div className="relative z-10">
+                  <h4 className="text-2xl md:text-3xl font-black mb-3 tracking-tight leading-tight" style={{ color: '#ffffff' }}>Hackathons &amp; Competitions</h4>
+                  <p className="text-white text-base md:text-lg font-semibold leading-relaxed">Showcase your skills, win prizes, and gain recognition in the data science community.</p>
+                </div>
+              </motion.div>
+
+              {/* Card 5 — Peer Learning */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.32 }}
+                className="group relative border-r border-[#E0D4F5] p-8 md:p-10 flex flex-col items-center justify-center min-h-[240px] md:min-h-[300px] overflow-hidden cursor-default text-center"
+              >
+                <img src="/card_peer_learning.png" alt="" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-black/55 group-hover:bg-black/65 transition-colors duration-500" />
+                <div className="relative z-10">
+                  <h4 className="text-2xl md:text-3xl font-black mb-3 tracking-tight leading-tight" style={{ color: '#ffffff' }}>Peer Learning</h4>
+                  <p className="text-white text-base md:text-lg font-semibold leading-relaxed">Study groups, code reviews, and collaborative learning to strengthen skills together.</p>
+                </div>
+              </motion.div>
+
+              {/* Card 6 — Innovation Lab */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.40 }}
+                className="group relative p-8 md:p-10 flex flex-col items-center justify-center min-h-[240px] md:min-h-[300px] overflow-hidden cursor-default text-center"
+              >
+                <img src="/card_innovation_lab.png" alt="" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-black/55 group-hover:bg-black/65 transition-colors duration-500" />
+                <div className="relative z-10">
+                  <h4 className="text-2xl md:text-3xl font-black mb-3 tracking-tight leading-tight" style={{ color: '#ffffff' }}>Innovation Lab</h4>
+                  <p className="text-white text-base md:text-lg font-semibold leading-relaxed">Ideate and experiment with emerging technologies and novel data science approaches.</p>
+                </div>
+              </motion.div>
+
             </div>
           </div>
 
@@ -1073,9 +1109,9 @@ const Home = () => {
             <div className="container mx-auto max-w-6xl relative z-10">
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-4">
                 <StatCard value={200} suffix="+" label="Active Members" delay={0} />
-                <StatCard value={12}  suffix="+" label="Events Hosted"  delay={0.1} />
-                <StatCard value={15}  suffix="+" label="Projects Built" delay={0.2} />
-                <StatCard value={5}   suffix="+" label="Workshops Run"  delay={0.3} />
+                <StatCard value={12} suffix="+" label="Events Hosted" delay={0.1} />
+                <StatCard value={15} suffix="+" label="Projects Built" delay={0.2} />
+                <StatCard value={5} suffix="+" label="Workshops Run" delay={0.3} />
               </div>
             </div>
           </div>
@@ -1083,9 +1119,8 @@ const Home = () => {
           <TechnicalArsenal />
 
           {/* ── Our Mission & Vision ── */}
-          <div className="mb-24 md:mb-40">
+          <div className="mt-24 md:mt-40 mb-8 md:mb-12">
             <div className="text-center mb-12 md:mb-16">
-              <span className="text-[10px] md:text-xs font-black text-[#9667E0] uppercase tracking-[0.4em] mb-4 block">Purpose Driven</span>
               <motion.h2
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -1100,22 +1135,44 @@ const Home = () => {
                 OUR MISSION & VISION
               </motion.h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-7xl mx-auto">
               {/* Mission */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="bg-white rounded-2xl p-8 md:p-10 border border-[#E0D4F5] shadow-sm hover:shadow-lg hover:border-[#9667E0]/40 transition-all h-full flex flex-col min-h-[280px]"
+                className="p-3 md:p-5 bg-[#ADC178] transition-all hover:-translate-y-2 hover:shadow-2xl flex flex-col"
               >
-                <div className="w-12 h-12 rounded-xl bg-[#1A0B2E] flex items-center justify-center mb-5">
-                  <Rocket size={22} className="text-white" />
+                <div className="bg-gradient-to-br from-[#FFFFFF] via-[#F5F5F5] to-[#E0E0E0] h-full flex flex-col justify-between p-10 md:p-12 relative overflow-hidden">
+
+                  {/* Dark Box Icon */}
+                  <div className="absolute top-8 right-8 w-32 h-32 md:w-48 md:h-48 bg-[#1A1A1A] flex items-center justify-center shadow-lg">
+                    <div className="absolute top-2 left-2 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
+                    <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
+                    <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
+                    <div className="absolute bottom-2 right-2 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
+                    <Rocket size={56} className="text-white/80" strokeWidth={1} />
+                  </div>
+
+                  {/* Spacer for top box */}
+                  <div className="h-32 md:h-48 w-full"></div>
+
+                  {/* Content */}
+                  <div className="flex flex-col items-start text-left mt-14 md:mt-20 z-10">
+
+                    <h3 className="text-2xl md:text-3xl font-extrabold text-[#1A0B2E] mb-6 tracking-tight">
+                      Our Mission
+                    </h3>
+                    <div className="flex gap-4 text-sm md:text-base text-[#2D164B] opacity-80 font-medium leading-relaxed">
+                      <span className="mt-0.5 shrink-0 text-[#1A0B2E] font-bold">→</span>
+                      <p>
+                        To empower students with cutting-edge data science skills through hands-on learning, collaborative projects, and industry exposure — transforming curious minds into confident data professionals ready to solve real-world problems.
+                      </p>
+                    </div>
+                  </div>
+
                 </div>
-                <h3 className="text-xl md:text-2xl font-extrabold text-[#1A0B2E] mb-3 tracking-tight">Our Mission</h3>
-                <p className="text-[#2D164B] text-sm md:text-base font-medium leading-relaxed opacity-80">
-                  To empower students with cutting-edge data science skills through hands-on learning, collaborative projects, and industry exposure — transforming curious minds into confident data professionals ready to solve real-world problems.
-                </p>
               </motion.div>
               {/* Vision */}
               <motion.div
@@ -1123,15 +1180,37 @@ const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="bg-white rounded-2xl p-8 md:p-10 border border-[#E0D4F5] shadow-sm hover:shadow-lg hover:border-[#9667E0]/40 transition-all h-full flex flex-col min-h-[280px]"
+                className="p-3 md:p-5 bg-[#ADC178] transition-all hover:-translate-y-2 hover:shadow-2xl flex flex-col"
               >
-                <div className="w-12 h-12 rounded-xl bg-[#1A0B2E] flex items-center justify-center mb-5">
-                  <Eye size={22} className="text-white" />
+                <div className="bg-gradient-to-br from-[#FFFFFF] via-[#F5F5F5] to-[#E0E0E0] h-full flex flex-col justify-between p-10 md:p-12 relative overflow-hidden">
+
+                  {/* Dark Box Icon */}
+                  <div className="absolute top-8 right-8 w-32 h-32 md:w-48 md:h-48 bg-[#1A1A1A] flex items-center justify-center shadow-lg">
+                    <div className="absolute top-2 left-2 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
+                    <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
+                    <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
+                    <div className="absolute bottom-2 right-2 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
+                    <Eye size={56} className="text-white/80" strokeWidth={1} />
+                  </div>
+
+                  {/* Spacer for top box */}
+                  <div className="h-32 md:h-48 w-full"></div>
+
+                  {/* Content */}
+                  <div className="flex flex-col items-start text-left mt-14 md:mt-20 z-10">
+
+                    <h3 className="text-2xl md:text-3xl font-extrabold text-[#1A0B2E] mb-6 tracking-tight">
+                      Our Vision
+                    </h3>
+                    <div className="flex gap-4 text-sm md:text-base text-[#2D164B] opacity-80 font-medium leading-relaxed">
+                      <span className="mt-0.5 shrink-0 text-[#1A0B2E] font-bold">→</span>
+                      <p>
+                        To build GIET University's most impactful student community — a knowledge hub where innovation meets execution, producing future-ready analysts, engineers, and researchers who lead the data revolution.
+                      </p>
+                    </div>
+                  </div>
+
                 </div>
-                <h3 className="text-xl md:text-2xl font-extrabold text-[#1A0B2E] mb-3 tracking-tight">Our Vision</h3>
-                <p className="text-[#2D164B] text-sm md:text-base font-medium leading-relaxed opacity-80">
-                  To build GIET University's most impactful student community — a knowledge hub where innovation meets execution, producing future-ready analysts, engineers, and researchers who lead the data revolution.
-                </p>
               </motion.div>
             </div>
           </div>
