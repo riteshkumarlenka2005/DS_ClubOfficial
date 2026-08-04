@@ -238,105 +238,91 @@ const Alumni = () => {
   return (
     <div className="w-full">
       <SEO title="Alumni" description="Meet the alumni of DSC GIETU — graduates making an impact in data science, AI and tech industries worldwide." />
-      {/* Header with 3D Background — COMPLETELY UNCHANGED */}
-      <section className="relative py-20 md:py-32 text-center px-4 md:px-6 overflow-hidden sticky top-0 z-0" style={{
-        background: 'linear-gradient(135deg, #0D0221 0%, #1A0B2E 40%, #2D164B 70%, #1A0B2E 100%)',
-      }}>
-        {/* Animated gradient mesh */}
-        <div className="absolute inset-0 pointer-events-none" style={{
-          background: 'radial-gradient(ellipse 60% 50% at 30% 40%, rgba(150,103,224,0.2) 0%, transparent 60%), radial-gradient(ellipse 50% 60% at 70% 60%, rgba(75,44,130,0.15) 0%, transparent 50%)',
-        }} />
+      {/* ── ALUMNI HERO (Minimal Typographic) ── */}
+      <section 
+        className="w-full min-h-[90vh] md:min-h-screen pt-24 pb-8 px-6 md:px-12 flex flex-col justify-between relative overflow-hidden"
+        style={{
+          backgroundColor: '#F4F4F4',
+          backgroundImage: `
+            radial-gradient(circle at 0% 0%, rgba(255, 204, 230, 0.4) 0%, transparent 40vw), 
+            radial-gradient(circle at 0% 100%, rgba(212, 196, 251, 0.4) 0%, transparent 40vw),
+            radial-gradient(circle at 100% 0%, rgba(255, 204, 230, 0.4) 0%, transparent 40vw), 
+            radial-gradient(circle at 100% 100%, rgba(212, 196, 251, 0.4) 0%, transparent 40vw)
+          `
+        }}
+      >
+        
+        {/* Typography Area */}
+        <div className="flex-1 flex flex-col justify-center max-w-[1400px] w-full mx-auto relative z-10 gap-1 md:gap-3 py-10 md:py-20">
+          
+          {/* Line 1 */}
+          <div className="w-full flex justify-between items-start">
+             <div className="flex-1 flex flex-col">
+               <motion.div 
+                 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                 className="text-[11vw] sm:text-[9.5vw] md:text-[8vw] xl:text-[120px] leading-[0.9] font-black text-[#111111] tracking-[-0.04em] uppercase whitespace-nowrap flex items-center"
+                 style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
+               >
+                 <svg width="0.75em" height="0.75em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="mr-3 md:mr-5 -mt-[1%] opacity-90 shrink-0">
+                   <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/>
+                 </svg>
+                 LEGACIES WORTH
+               </motion.div>
+               
+               <motion.div 
+                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5 }}
+                 className="mt-6 md:mt-8 ml-[10%] md:ml-[12%]"
+               >
+                 <p className="text-[#111111] font-semibold text-[13px] md:text-[14px] leading-[1.6] max-w-[340px]">
+                    Celebrating our legacy. Our alumni are shaping the tech landscape at world-renowned organizations, launching startups, and leading innovation across the globe.
+                 </p>
+               </motion.div>
+             </div>
+          </div>
 
-        {/* 3D Floating shapes */}
-        {[
-          { size: 60, x: '15%', y: '20%', delay: 0, duration: 6, rotate: 45 },
-          { size: 40, x: '80%', y: '25%', delay: 1, duration: 8, rotate: -30 },
-          { size: 80, x: '70%', y: '65%', delay: 2, duration: 7, rotate: 60 },
-          { size: 50, x: '25%', y: '70%', delay: 0.5, duration: 9, rotate: -45 },
-          { size: 35, x: '50%', y: '15%', delay: 3, duration: 10, rotate: 20 },
-          { size: 45, x: '90%', y: '50%', delay: 1.5, duration: 6.5, rotate: -60 },
-        ].map((shape, i) => (
-          <motion.div
-            key={i}
-            className="absolute pointer-events-none"
-            style={{
-              left: shape.x, top: shape.y,
-              width: shape.size, height: shape.size,
-              border: `2px solid rgba(150,103,224,${0.15 + i * 0.03})`,
-              borderRadius: i % 3 === 0 ? '50%' : i % 3 === 1 ? '8px' : '0px',
-              transform: `rotate(${shape.rotate}deg)`,
-            }}
-            animate={{
-              y: [0, -30, 10, 0],
-              x: [0, 15, -10, 0],
-              rotate: [shape.rotate, shape.rotate + 180, shape.rotate + 360],
-              scale: [1, 1.1, 0.9, 1],
-            }}
-            transition={{ duration: shape.duration, repeat: Infinity, delay: shape.delay, ease: 'easeInOut' }}
-          />
-        ))}
+          {/* Line 2 */}
+          <div className="w-full flex justify-end mt-4 md:mt-0">
+             <motion.div 
+               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+               className="text-[11vw] sm:text-[9.5vw] md:text-[8vw] xl:text-[120px] leading-[0.9] font-black text-[#111111] tracking-[-0.04em] uppercase whitespace-nowrap pr-[5%] md:pr-[8%]"
+               style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
+             >
+               CELEBRATING
+             </motion.div>
+          </div>
 
-        {/* Glowing orbs */}
-        {[
-          { size: 250, x: '10%', y: '30%', color: '#9667E0' },
-          { size: 200, x: '75%', y: '50%', color: '#4B2C82' },
-          { size: 180, x: '50%', y: '10%', color: '#D8CAF6' },
-        ].map((orb, i) => (
-          <motion.div
-            key={`orb-${i}`}
-            className="absolute rounded-full pointer-events-none"
-            style={{
-              width: orb.size, height: orb.size,
-              left: orb.x, top: orb.y,
-              background: `radial-gradient(circle, ${orb.color}18 0%, transparent 70%)`,
-              filter: 'blur(50px)',
-            }}
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.4, 0.7, 0.4],
-            }}
-            transition={{ duration: 5 + i * 2, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        ))}
+          {/* Line 3 */}
+          <div className="w-full flex justify-center pl-[5%] md:pl-[8%] mt-2 md:mt-0">
+             <motion.div 
+               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+               className="text-[11vw] sm:text-[9.5vw] md:text-[8vw] xl:text-[120px] leading-[0.9] font-black text-[#111111] tracking-[-0.04em] uppercase whitespace-nowrap flex items-start"
+               style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
+             >
+               ALWAYS<span className="text-[3vw] md:text-[2vw] xl:text-[30px] mt-[1%] ml-1 md:ml-2 font-bold">™</span>
+             </motion.div>
+          </div>
 
-        {/* 3D perspective grid */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ perspective: '600px' }}>
-          <motion.div
-            className="absolute w-[200%] h-[200%] -left-1/2 -top-1/2"
-            style={{
-              backgroundImage: 'linear-gradient(rgba(150,103,224,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(150,103,224,0.08) 1px, transparent 1px)',
-              backgroundSize: '50px 50px',
-              transformOrigin: 'center center',
-              transform: 'rotateX(60deg) translateZ(-100px)',
-            }}
-            animate={{ y: ['0%', '2.5%'] }}
-            transition={{ duration: 4, repeat: Infinity, repeatType: 'reverse', ease: 'linear' }}
-          />
         </div>
 
-        {/* Rotating rings */}
-        <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-        >
-          <div className="w-[350px] h-[350px] md:w-[500px] md:h-[500px] rounded-full border border-[#9667E0]/10" />
-        </motion.div>
-        <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-          animate={{ rotate: -360 }}
-          transition={{ duration: 45, repeat: Infinity, ease: 'linear' }}
-        >
-          <div className="w-[280px] h-[280px] md:w-[400px] md:h-[400px] rounded-full border border-dashed border-[#D8CAF6]/8" />
-        </motion.div>
-
-        {/* Content */}
-        <div className="relative z-10">
-          <AnimatedText text="ALUMNI HALL" animateOnLoad className="text-3xl sm:text-4xl md:text-9xl font-black mb-6 md:mb-8 text-white tracking-tight drop-shadow-[0_0_40px_rgba(150,103,224,0.4)]" />
-          <p className="text-white/70 text-lg md:text-2xl max-w-2xl mx-auto font-bold leading-relaxed px-4">
-            Celebrating our legacy. Our alumni are shaping the tech landscape at world-renowned organizations.
-          </p>
+        {/* Bottom Footer Area */}
+        <div className="w-full max-w-[1400px] mx-auto flex flex-row items-end justify-between relative z-20 pb-4 md:pb-8">
+           <div className="relative z-20">
+             <button 
+               onClick={() => {
+                 window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+               }}
+               className="text-[#111111] font-bold text-[12px] md:text-[14px] tracking-wide uppercase pb-1 border-b-[1.5px] border-[#111111] hover:opacity-60 transition-opacity cursor-pointer"
+             >
+               Meet our alumni
+             </button>
+           </div>
+           <div className="relative z-20">
+             <span className="text-[#111111] font-bold text-[12px] md:text-[14px] tracking-wide uppercase">
+               (SCROLL)
+             </span>
+           </div>
         </div>
+
       </section>
 
       {/* All Alumni Sections — dynamic */}

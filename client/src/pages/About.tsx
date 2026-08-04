@@ -305,29 +305,74 @@ const MemberCard = ({ member, size = "md", onClick }: { member: TeamMember; size
 
 const EditorialHero = () => {
   return (
-    <section className="relative w-full flex flex-col md:flex-row min-h-[70vh] overflow-hidden">
-      <div className="md:flex-1 bg-[#B3C8E8] flex flex-col justify-center px-8 md:px-20 py-16 md:py-20">
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-xl"
-        >
-          <h1 className="text-3xl sm:text-4xl md:text-7xl font-black text-[#1A0B2E] leading-[1.1] mb-8 tracking-tight" style={{ fontFamily: "'Poppins', sans-serif" }}>
-            From Research Labs <br /> to your Horizon
-          </h1>
-          <p className="text-sm md:text-base text-[#1A0B2E]/70 font-medium leading-relaxed max-w-md">
-            It all started with DSC GIETU's love for data science. We wanted to connect fellow learners by sharing stories centered around intelligence to elevate their voices. We began sharing our monthly research, and the world caught on. Now, we invite you to join the journey.
-          </p>
-        </motion.div>
-      </div>
+    <section 
+      className="w-full pt-24 pb-16 px-6 md:px-12 lg:px-20 text-[#111111]"
+      style={{
+        backgroundColor: '#F4F4F4',
+        backgroundImage: `
+          radial-gradient(circle at 0% 0%, rgba(255, 204, 230, 0.4) 0%, transparent 40vw), 
+          radial-gradient(circle at 0% 100%, rgba(212, 196, 251, 0.4) 0%, transparent 40vw),
+          radial-gradient(circle at 100% 0%, rgba(255, 204, 230, 0.4) 0%, transparent 40vw), 
+          radial-gradient(circle at 100% 100%, rgba(212, 196, 251, 0.4) 0%, transparent 40vw)
+        `
+      }}
+    >
+      <div className="max-w-[1400px] mx-auto">
+        
+        {/* Top Header Section */}
+        <div className="flex flex-col md:flex-row md:justify-between items-start mb-12">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
+            className="text-6xl sm:text-7xl md:text-8xl lg:text-[120px] font-black leading-[0.9] tracking-tight mb-8 md:mb-0"
+            style={{ fontFamily: "'Helvetica', 'Arial', sans-serif" }}
+          >
+            We're <br /> DSC GIETU.
+          </motion.h1>
+          <motion.div 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.3 }}
+            className="md:max-w-[220px] text-left flex flex-col justify-end h-full mt-2 md:mt-24"
+          >
+            <p className="text-xs md:text-sm font-bold uppercase tracking-widest leading-[1.8]">
+                INTENTIONAL DATA <br />
+                SOLUTIONS FOR <br />
+                CURIOUS MINDS.
+            </p>
+          </motion.div>
+        </div>
 
-      <div className="relative h-[45vh] md:flex-1 md:h-auto min-h-[300px]">
-        <img
-          src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1200"
-          alt="Students collaborating"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+        {/* Main Horizontal Image */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.1 }}
+          className="w-full h-[30vh] md:h-[50vh] relative mb-12 overflow-hidden"
+        >
+          <img 
+            src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=2000" 
+            alt="Students Group" 
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+
+        {/* Line Separator */}
+        <div className="w-full h-[1px] bg-[#111111]/20 mb-12 md:mb-20" />
+
+        {/* About Text Section */}
+        <div className="flex flex-col md:flex-row md:justify-between mb-24 lg:mb-32">
+          <div className="mb-8 md:mb-0 md:w-1/4">
+            <h3 className="text-4xl md:text-5xl font-black leading-[1.1] tracking-tight" style={{ fontFamily: "'Helvetica', 'Arial', sans-serif" }}>About The Club</h3>
+          </div>
+          <div className="md:w-1/2 text-base md:text-lg font-semibold leading-[1.9] text-[#111111]/75 space-y-6">
+            <p>
+              DSC GIETU is a strategic tech community that believes every student has a story worth shaping. We craft solutions with intention, focusing on clarity, nuance, and lasting impact. Our approach is thoughtful, collaborative, and rooted in curiosity — for both our work and the community we partner with.
+            </p>
+            <p>
+              We work with creators, innovators, and makers who value precision, originality, and meaning. Each project is an opportunity to distill complex ideas into clear, confident technical identities that resonate. From strategy to design, every decision is purposeful, every detail considered.
+            </p>
+            <button className="text-[10px] font-black uppercase tracking-widest mt-8 pb-1 hover:opacity-60 transition-opacity flex items-center gap-2">
+              ( GET TO KNOW US )
+            </button>
+          </div>
+        </div>
+
       </div>
     </section>
   );
@@ -335,29 +380,60 @@ const EditorialHero = () => {
 
 const IntroStatement = () => {
   return (
-    <section className="py-24 px-4 md:px-6 bg-[#F9F7FF] text-center border-t border-[#B3C8E8]/30">
-      <div className="max-w-4xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-2xl sm:text-4xl md:text-6xl font-black text-[#1A0B2E] mb-10 tracking-tight" style={{ fontFamily: "'Poppins', sans-serif" }}
-        >
-          Oh The Places We'll Grow
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="text-base md:text-lg text-[#2D164B]/80 font-medium leading-relaxed"
-        >
-          We are a vibrant community propelled by the meaningful connections we make with different researchers,
-          protagonists, and fellow learners. We consciously curate workshops that celebrate the stories and autonomy of
-          student innovators, championing voices and platforming authors too often overlooked. And we do it together, because to
-          us, learning is joy—joy that's intimate, and contagious, and true. So—we think—the more of us learning together,
-          the better.
-        </motion.p>
+    <section 
+      className="w-full pb-32 px-6 md:px-12 lg:px-20 text-[#111111]"
+      style={{
+        backgroundColor: '#F4F4F4',
+        backgroundImage: `
+          radial-gradient(circle at 0% 0%, rgba(255, 204, 230, 0.4) 0%, transparent 40vw), 
+          radial-gradient(circle at 0% 100%, rgba(212, 196, 251, 0.4) 0%, transparent 40vw),
+          radial-gradient(circle at 100% 0%, rgba(255, 204, 230, 0.4) 0%, transparent 40vw), 
+          radial-gradient(circle at 100% 100%, rgba(212, 196, 251, 0.4) 0%, transparent 40vw)
+        `
+      }}
+    >
+      <div className="max-w-[1400px] mx-auto">
+
+        {/* Divider */}
+        <div className="w-full h-[1px] bg-[#111111]/15 mb-16 md:mb-24" />
+
+        {/* Two Column Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 lg:gap-40">
+
+          {/* Why We Exist */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}
+          >
+            <p className="text-[10px] font-black uppercase tracking-widest text-[#111111]/40 mb-5">Our Purpose</p>
+            <h2
+              className="text-4xl md:text-5xl font-black leading-[1.1] tracking-tight mb-8"
+              style={{ fontFamily: "'Helvetica', 'Arial', sans-serif" }}
+            >
+              Why We Exist.
+            </h2>
+            <p className="text-base md:text-lg font-semibold leading-[1.9] text-[#111111]/75">
+              DSC GIETU was founded on one conviction — that academic learning alone isn't enough. The world moves fast, and students deserve a space where curiosity is celebrated, failure is a lesson, and ambition is the norm. We exist to bridge the gap between classroom theory and real-world application, creating an environment where every student can explore data science, machine learning, and AI — not just as subjects, but as tools to reshape the world around them.
+            </p>
+          </motion.div>
+
+          {/* Why Students Love DS Club */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.15 }}
+          >
+            <p className="text-[10px] font-black uppercase tracking-widest text-[#111111]/40 mb-5">Student Perspective</p>
+            <h2
+              className="text-4xl md:text-5xl font-black leading-[1.1] tracking-tight mb-8"
+              style={{ fontFamily: "'Helvetica', 'Arial', sans-serif" }}
+            >
+              Why Students Choose Us.
+            </h2>
+            <p className="text-base md:text-lg font-semibold leading-[1.9] text-[#111111]/75">
+              Students don't just join DSC GIETU for the workshops or hackathon wins — they stay for the people. It's the culture of open collaboration, the seniors who guide without judgment, and the peers who push you to think bigger. Members get hands-on experience with live projects, access to a powerful alumni network spanning top global companies, and a community that genuinely celebrates each other's growth. It's where ambition finds its tribe.
+            </p>
+          </motion.div>
+
+        </div>
+
       </div>
     </section>
   );
@@ -637,17 +713,44 @@ const About = () => {
           </div>
         </section>
 
-        {/* JOIN CALL TO ACTION — unchanged */}
-        <section className="px-4 sm:px-6 py-12 sm:py-24 md:py-40 bg-white">
-          <div className="container mx-auto">
-            <motion.div whileHover={{ y: -10 }} className="bg-gradient-to-br from-[#1A0B2E] to-[#4B2C82] rounded-2xl sm:rounded-[4rem] md:rounded-[6rem] p-8 sm:p-12 md:p-32 text-center text-white relative overflow-hidden shadow-2xl">
-              <h2 className="text-2xl sm:text-4xl md:text-8xl font-black mb-6 sm:mb-10 uppercase tracking-tighter leading-none text-white">COMMITMENT <br className="hidden sm:block" /> LEADS TO IMPACT</h2>
-              <button
-                onClick={() => navigate('/join')}
-                className="w-full sm:w-auto px-8 sm:px-16 py-4 sm:py-6 bg-white text-[#1A0B2E] rounded-2xl sm:rounded-3xl font-black text-sm sm:text-xl tracking-widest uppercase shadow-2xl hover:bg-[#EEEAFD] transition-all group flex items-center justify-center gap-3 sm:gap-4 mx-auto"
-              >
-                Apply For Membership <ArrowRight className="group-hover:translate-x-3 transition-transform" />
-              </button>
+        {/* JOIN CALL TO ACTION */}
+        <section className="px-4 sm:px-6 py-12 sm:py-24 md:py-32 bg-white">
+          <div className="container mx-auto max-w-[1300px]">
+            <motion.div 
+              whileHover={{ y: -8 }} 
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="rounded-[2rem] sm:rounded-[3rem] p-10 sm:p-20 text-center relative overflow-hidden shadow-xl"
+              style={{ background: 'linear-gradient(135deg, #EDE8FA 0%, #E4D9FF 50%, #DDD0FF 100%)' }}
+            >
+              {/* Subtle noise texture */}
+              <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/paper-fibers.png")' }} />
+              
+              {/* Subtle top glow */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[70%] h-[60%] bg-gradient-to-b from-white/10 to-transparent blur-[60px] pointer-events-none" />
+
+              <div className="relative z-10 flex flex-col items-center">
+                <span className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.4em] mb-6 block" style={{ color: '#6B4FA0' }}>
+                  Join The Initiative
+                </span>
+                
+                <h2 
+                  className="text-4xl sm:text-5xl md:text-7xl font-black mb-10 tracking-tight leading-[1]" 
+                  style={{ fontFamily: "'Helvetica', 'Arial', sans-serif", color: '#111111' }}
+                >
+                  COMMITMENT <br className="hidden sm:block" /> LEADS TO IMPACT
+                </h2>
+                
+                <button
+                  onClick={() => navigate('/join')}
+                  className="group px-8 sm:px-10 py-4 sm:py-5 rounded-full font-bold text-xs sm:text-sm tracking-widest uppercase transition-all flex items-center justify-center gap-3 cursor-pointer"
+                  style={{ background: '#1A0B2E', color: '#ffffff' }}
+                  onMouseEnter={e => (e.currentTarget.style.background = '#2D164B')}
+                  onMouseLeave={e => (e.currentTarget.style.background = '#1A0B2E')}
+                >
+                  Apply For Membership 
+                  <ArrowRight size={16} className="group-hover:translate-x-1.5 transition-transform" />
+                </button>
+              </div>
             </motion.div>
           </div>
         </section>

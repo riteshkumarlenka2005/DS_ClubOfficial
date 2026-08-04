@@ -247,23 +247,23 @@ const DeepGallery = ({ collection, onBack }: { collection: Collection, onBack: (
 
 /* ── Loading Skeleton ── */
 const GallerySkeleton = () => (
-  <div className="w-full bg-[#FCFAFE] min-h-screen pb-32">
-    <div className="relative py-20 md:py-32 text-center px-6 bg-[#1A0B2E]">
-      <div className="h-16 md:h-24 w-64 md:w-96 bg-white/10 rounded-xl mx-auto mb-6 animate-pulse" />
-      <div className="h-6 w-80 bg-white/5 rounded mx-auto animate-pulse" />
+  <div className="w-full bg-[#F4F4F4] min-h-screen pb-32">
+    <div className="relative pt-32 pb-12 md:py-32 text-center px-6">
+      <div className="h-20 md:h-32 w-[80%] md:w-[700px] bg-gray-200 rounded-2xl mx-auto mb-6 animate-pulse" />
+      <div className="h-6 w-[60%] md:w-96 bg-gray-200 rounded mx-auto animate-pulse" />
     </div>
     <div className="px-6 md:px-12 py-10 max-w-7xl mx-auto">
       {[1, 2].map(i => (
         <div key={i} className={`flex flex-col md:flex-row items-center gap-4 md:gap-24 mb-12 md:mb-48 animate-pulse ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
           <div className="w-full md:w-1/2 space-y-4 md:space-y-8">
-            <div className="h-3 w-20 bg-[#EEEAFD] rounded" />
-            <div className="h-12 md:h-20 w-4/5 bg-[#EEEAFD]/60 rounded-lg" />
-            <div className="h-4 w-full bg-[#EEEAFD]/30 rounded" />
-            <div className="h-4 w-3/4 bg-[#EEEAFD]/30 rounded" />
-            <div className="h-10 w-36 bg-[#EEEAFD]/50 rounded-full" />
+            <div className="h-3 w-20 bg-gray-200 rounded" />
+            <div className="h-12 md:h-20 w-4/5 bg-gray-200 rounded-lg" />
+            <div className="h-4 w-full bg-gray-200 rounded" />
+            <div className="h-4 w-3/4 bg-gray-200 rounded" />
+            <div className="h-12 w-40 bg-gray-200 rounded-full" />
           </div>
           <div className="w-full md:w-1/2">
-            <div className="aspect-[3/4] bg-[#EEEAFD]/40 rounded" />
+            <div className="aspect-[3/4] bg-gray-200 rounded-3xl" />
           </div>
         </div>
       ))}
@@ -348,107 +348,94 @@ const Gallery: React.FC<{ onSwitchToBlog?: () => void }> = ({ onSwitchToBlog }) 
             <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-0" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/paper-fibers.png")' }} />
 
             <div className="relative z-10">
-              <section className="relative py-20 md:py-32 text-center px-4 md:px-6 overflow-hidden" style={{
-                background: 'linear-gradient(135deg, #0D0221 0%, #1A0B2E 40%, #2D164B 70%, #1A0B2E 100%)',
-              }}>
-                {/* Animated gradient mesh */}
-                <div className="absolute inset-0 pointer-events-none" style={{
-                  background: 'radial-gradient(ellipse 60% 50% at 30% 40%, rgba(150,103,224,0.2) 0%, transparent 60%), radial-gradient(ellipse 50% 60% at 70% 60%, rgba(75,44,130,0.15) 0%, transparent 50%)',
-                }} />
+              {/* ── GALLERY HERO (Minimal Typographic) ── */}
+              <section 
+                className="w-full min-h-[90vh] md:min-h-screen pt-24 pb-8 px-6 md:px-12 flex flex-col justify-between relative overflow-hidden"
+                style={{
+                  backgroundColor: '#F8F9FA',
+                  backgroundImage: `
+                    radial-gradient(circle at 0% 100%, rgba(136, 212, 231, 0.4) 0%, transparent 55vw), 
+                    radial-gradient(circle at 100% 100%, rgba(144, 228, 187, 0.4) 0%, transparent 55vw)
+                  `
+                }}
+              >
+                
+                {/* Typography Area */}
+                <div className="flex-1 flex flex-col justify-center max-w-[1400px] w-full mx-auto relative z-10 gap-1 md:gap-3 py-10 md:py-20">
+                  
+                  {/* Line 1 */}
+                  <div className="w-full flex justify-between items-start">
+                     <div className="flex-1 flex flex-col">
+                       <motion.div 
+                         initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                         className="text-[11vw] sm:text-[9.5vw] md:text-[8vw] xl:text-[120px] leading-[0.9] font-black text-[#111111] tracking-[-0.04em] uppercase whitespace-nowrap flex items-center"
+                         style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
+                       >
+                         <svg width="0.75em" height="0.75em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="mr-3 md:mr-5 -mt-[1%] opacity-90 shrink-0">
+                           <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/>
+                         </svg>
+                         VISUALS WORTH
+                       </motion.div>
+                       
+                       <motion.div 
+                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5 }}
+                         className="mt-6 md:mt-8 ml-[10%] md:ml-[12%]"
+                       >
+                         <p className="text-[#111111] font-semibold text-[13px] md:text-[14px] leading-[1.6] max-w-[340px]">
+                            DSC GIETU is a strategic tech community that works with innovative, high-growth students looking to launch, learn, or refresh their skills.
+                         </p>
+                       </motion.div>
+                     </div>
+                  </div>
 
-                {/* 3D Floating shapes */}
-                {[
-                  { size: 60, x: '15%', y: '20%', delay: 0, duration: 6, rotate: 45 },
-                  { size: 40, x: '80%', y: '25%', delay: 1, duration: 8, rotate: -30 },
-                  { size: 80, x: '70%', y: '65%', delay: 2, duration: 7, rotate: 60 },
-                  { size: 50, x: '25%', y: '70%', delay: 0.5, duration: 9, rotate: -45 },
-                  { size: 35, x: '50%', y: '15%', delay: 3, duration: 10, rotate: 20 },
-                  { size: 45, x: '90%', y: '50%', delay: 1.5, duration: 6.5, rotate: -60 },
-                ].map((shape, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute pointer-events-none"
-                    style={{
-                      left: shape.x, top: shape.y,
-                      width: shape.size, height: shape.size,
-                      border: `2px solid rgba(150,103,224,${0.15 + i * 0.03})`,
-                      borderRadius: i % 3 === 0 ? '50%' : i % 3 === 1 ? '8px' : '0px',
-                      transform: `rotate(${shape.rotate}deg)`,
-                    }}
-                    animate={{
-                      y: [0, -30, 10, 0],
-                      x: [0, 15, -10, 0],
-                      rotate: [shape.rotate, shape.rotate + 180, shape.rotate + 360],
-                      scale: [1, 1.1, 0.9, 1],
-                    }}
-                    transition={{ duration: shape.duration, repeat: Infinity, delay: shape.delay, ease: 'easeInOut' }}
-                  />
-                ))}
+                  {/* Line 2 */}
+                  <div className="w-full flex justify-end mt-4 md:mt-0">
+                     <motion.div 
+                       initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                       className="text-[11vw] sm:text-[9.5vw] md:text-[8vw] xl:text-[120px] leading-[0.9] font-black text-[#111111] tracking-[-0.04em] uppercase whitespace-nowrap pr-[5%] md:pr-[8%]"
+                       style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
+                     >
+                       RELIVING
+                     </motion.div>
+                  </div>
 
-                {/* Glowing orbs */}
-                {[
-                  { size: 250, x: '10%', y: '30%', color: '#9667E0' },
-                  { size: 200, x: '75%', y: '50%', color: '#4B2C82' },
-                  { size: 180, x: '50%', y: '10%', color: '#D8CAF6' },
-                ].map((orb, i) => (
-                  <motion.div
-                    key={`orb-${i}`}
-                    className="absolute rounded-full pointer-events-none"
-                    style={{
-                      width: orb.size, height: orb.size,
-                      left: orb.x, top: orb.y,
-                      background: `radial-gradient(circle, ${orb.color}18 0%, transparent 70%)`,
-                      filter: 'blur(50px)',
-                    }}
-                    animate={{
-                      scale: [1, 1.3, 1],
-                      opacity: [0.4, 0.7, 0.4],
-                    }}
-                    transition={{ duration: 5 + i * 2, repeat: Infinity, ease: 'easeInOut' }}
-                  />
-                ))}
+                  {/* Line 3 */}
+                  <div className="w-full flex justify-center pl-[5%] md:pl-[8%] mt-2 md:mt-0">
+                     <motion.div 
+                       initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                       className="text-[11vw] sm:text-[9.5vw] md:text-[8vw] xl:text-[120px] leading-[0.9] font-black text-[#111111] tracking-[-0.04em] uppercase whitespace-nowrap flex items-start"
+                       style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
+                     >
+                       AGAIN<span className="text-[3vw] md:text-[2vw] xl:text-[30px] mt-[1%] ml-1 md:ml-2 font-bold">™</span>
+                     </motion.div>
+                  </div>
 
-                {/* 3D perspective grid */}
-                <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ perspective: '600px' }}>
-                  <motion.div
-                    className="absolute w-[200%] h-[200%] -left-1/2 -top-1/2"
-                    style={{
-                      backgroundImage: 'linear-gradient(rgba(150,103,224,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(150,103,224,0.08) 1px, transparent 1px)',
-                      backgroundSize: '50px 50px',
-                      transformOrigin: 'center center',
-                      transform: 'rotateX(60deg) translateZ(-100px)',
-                    }}
-                    animate={{ y: ['0%', '2.5%'] }}
-                    transition={{ duration: 4, repeat: Infinity, repeatType: 'reverse', ease: 'linear' }}
-                  />
                 </div>
 
-                {/* Rotating rings */}
-                <motion.div
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-                >
-                  <div className="w-[350px] h-[350px] md:w-[500px] md:h-[500px] rounded-full border border-[#9667E0]/10" />
-                </motion.div>
-                <motion.div
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 45, repeat: Infinity, ease: 'linear' }}
-                >
-                  <div className="w-[280px] h-[280px] md:w-[400px] md:h-[400px] rounded-full border border-dashed border-[#D8CAF6]/8" />
-                </motion.div>
-
-                {/* Content */}
-                <div className="relative z-10">
-                  <AnimatedText text="GALLERY" animateOnLoad className="text-3xl sm:text-4xl md:text-9xl font-black mb-6 md:mb-8 text-white tracking-tight drop-shadow-[0_0_40px_rgba(150,103,224,0.4)]" />
-                  <p className="text-white/70 text-lg md:text-2xl max-w-2xl mx-auto font-bold leading-relaxed px-4">
-                    Visual records of events, workshops, and achievements at the Data Science Club GIETU.
-                  </p>
+                {/* Bottom Footer Area */}
+                <div className="w-full max-w-[1400px] mx-auto flex flex-row items-end justify-between relative z-20 pb-4 md:pb-8">
+                   <div className="relative z-20">
+                     <button 
+                       onClick={() => {
+                         const el = document.getElementById('gallery-grid');
+                         if (el) el.scrollIntoView({ behavior: 'smooth' });
+                       }}
+                       className="text-[#111111] font-bold text-[12px] md:text-[14px] tracking-wide uppercase pb-1 border-b-[1.5px] border-[#111111] hover:opacity-60 transition-opacity cursor-pointer"
+                     >
+                       Here's our gallery
+                     </button>
+                   </div>
+                   <div className="relative z-20">
+                     <span className="text-[#111111] font-bold text-[12px] md:text-[14px] tracking-wide uppercase">
+                       (SCROLL)
+                     </span>
+                   </div>
                 </div>
+
               </section>
 
-              <section className="px-4 md:px-12 py-4 md:py-10 sticky top-[72px] md:top-20 z-40 bg-white/95 backdrop-blur-sm border-b border-[#DED4C7]/40 shadow-sm mb-12 md:mb-32">
+
+              <section id="gallery-grid" className="px-4 md:px-12 py-4 md:py-10 sticky top-[72px] md:top-20 z-40 bg-white/95 backdrop-blur-sm border-b border-[#DED4C7]/40 shadow-sm mb-12 md:mb-32">
                 <div className="max-w-7xl mx-auto">
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 md:gap-8">
                     {/* Desktop Filters */}
