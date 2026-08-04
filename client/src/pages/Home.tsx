@@ -3,6 +3,7 @@ import { motion, useReducedMotion, useScroll, useTransform, useSpring, useMotion
 import { useNavigate } from 'react-router-dom';
 import { TechnicalArsenal } from '../components/TechnicalArsenal';
 import SEO from '../components/SEO';
+import { ExploreCommunity } from '../components/ExploreCommunity';
 import LightTunnelBackground from '../components/LightTunnelBackground';
 import { useApi } from '../hooks/useApi';
 import { latestUpdatesService, LatestUpdate } from '../services/latestUpdates.service';
@@ -1146,14 +1147,21 @@ const Home = () => {
               >
                 <div className="bg-gradient-to-br from-[#FFFFFF] via-[#F5F5F5] to-[#E0E0E0] h-full flex flex-col justify-between p-10 md:p-12 relative overflow-hidden">
 
-                  {/* Dark Box Icon */}
-                  <div className="absolute top-8 right-8 w-32 h-32 md:w-48 md:h-48 bg-[#1A1A1A] flex items-center justify-center shadow-lg">
+                  {/* Dark Box Icon - animates from full cover to top-right corner */}
+                  <motion.div
+                    initial={{ width: '100%', height: '100%', top: 0, right: 0, borderRadius: 0 }}
+                    whileInView={{ width: '12rem', height: '12rem', top: '2rem', right: '2rem', borderRadius: 0 }}
+                    viewport={{ once: false, amount: 0.4 }}
+                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+                    className="absolute bg-[#1A1A1A] flex items-center justify-center shadow-lg z-20"
+                    style={{ top: 0, right: 0 }}
+                  >
                     <div className="absolute top-2 left-2 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
                     <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
                     <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
                     <div className="absolute bottom-2 right-2 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
                     <Rocket size={56} className="text-white/80" strokeWidth={1} />
-                  </div>
+                  </motion.div>
 
                   {/* Spacer for top box */}
                   <div className="h-32 md:h-48 w-full"></div>
@@ -1184,14 +1192,21 @@ const Home = () => {
               >
                 <div className="bg-gradient-to-br from-[#FFFFFF] via-[#F5F5F5] to-[#E0E0E0] h-full flex flex-col justify-between p-10 md:p-12 relative overflow-hidden">
 
-                  {/* Dark Box Icon */}
-                  <div className="absolute top-8 right-8 w-32 h-32 md:w-48 md:h-48 bg-[#1A1A1A] flex items-center justify-center shadow-lg">
+                  {/* Dark Box Icon - animates from full cover to top-right corner */}
+                  <motion.div
+                    initial={{ width: '100%', height: '100%', top: 0, right: 0, borderRadius: 0 }}
+                    whileInView={{ width: '12rem', height: '12rem', top: '2rem', right: '2rem', borderRadius: 0 }}
+                    viewport={{ once: false, amount: 0.4 }}
+                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
+                    className="absolute bg-[#1A1A1A] flex items-center justify-center shadow-lg z-20"
+                    style={{ top: 0, right: 0 }}
+                  >
                     <div className="absolute top-2 left-2 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
                     <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
                     <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
                     <div className="absolute bottom-2 right-2 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
                     <Eye size={56} className="text-white/80" strokeWidth={1} />
-                  </div>
+                  </motion.div>
 
                   {/* Spacer for top box */}
                   <div className="h-32 md:h-48 w-full"></div>
@@ -1222,48 +1237,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── Internal Linking + Keyword Content Section ── */}
-      <section className="relative z-20 py-16 md:py-24 px-4 md:px-6 bg-white">
-        <div className="container mx-auto max-w-5xl">
-          {/* Keyword-rich description for SEO */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12 md:mb-16"
-          >
-            <h2 className="text-2xl md:text-4xl font-black text-[#1A0B2E] mb-6 tracking-tight">
-              Explore <span className="text-[#9667E0]">DSC GIETU</span>
-            </h2>
-            <p className="text-[#2D164B] text-sm md:text-base font-medium opacity-70 max-w-3xl mx-auto leading-relaxed">
-              The Data Science Club at GIET University (DSC GIETU) is a student-led community focused on artificial intelligence, machine learning, data science research, hackathons, and technical workshops. Discover what we do and join our growing community.
-            </p>
-          </motion.div>
-
-          {/* Quick-link cards for sitelinks */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
-            {[
-              { title: 'Explore Our Events', desc: 'Workshops, hackathons, tech talks and more.', path: '/events', emoji: '📅' },
-              { title: 'Meet Our Alumni', desc: 'Graduates making impact in data science.', path: '/alumni', emoji: '🎓' },
-              { title: 'Browse the Gallery', desc: 'Photos and highlights from club activities.', path: '/gallery', emoji: '📸' },
-            ].map((item, idx) => (
-              <motion.div
-                key={item.path}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                onClick={() => navigate(item.path)}
-                className="group cursor-pointer bg-[#FAFAFE] border border-[#E0D4F5] rounded-2xl p-6 hover:shadow-lg hover:border-[#9667E0]/40 hover:-translate-y-1 transition-all"
-              >
-                <span className="text-2xl mb-3 block">{item.emoji}</span>
-                <h3 className="text-base font-extrabold text-[#1A0B2E] mb-2 group-hover:text-[#9667E0] transition-colors">{item.title}</h3>
-                <p className="text-xs text-[#2D164B] font-medium opacity-60 leading-relaxed">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ExploreCommunity />
 
       {/* Footer CTA: Optimized Conversion Tier */}
       <section className="relative z-20 py-12 sm:py-24 md:py-40 px-4 md:px-6 bg-[#D8CAF6] flex flex-col items-center justify-center text-center">
