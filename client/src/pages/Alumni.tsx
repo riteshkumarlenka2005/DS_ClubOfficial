@@ -260,7 +260,7 @@ const Alumni = () => {
              <div className="flex-1 flex flex-col">
                <motion.div 
                  initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                 className="text-[11vw] sm:text-[9.5vw] md:text-[8vw] xl:text-[120px] leading-[0.9] font-black text-[#111111] tracking-[-0.04em] uppercase whitespace-nowrap flex items-center"
+                 className="text-4xl sm:text-6xl md:text-[8vw] xl:text-[120px] leading-[1.1] md:leading-[0.9] font-black text-[#111111] tracking-[-0.02em] md:tracking-[-0.04em] uppercase flex items-center flex-wrap md:flex-nowrap"
                  style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
                >
                  <svg width="0.75em" height="0.75em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="mr-3 md:mr-5 -mt-[1%] opacity-90 shrink-0">
@@ -271,7 +271,7 @@ const Alumni = () => {
                
                <motion.div 
                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5 }}
-                 className="mt-6 md:mt-8 ml-[10%] md:ml-[12%]"
+                 className="mt-6 md:mt-8 ml-0 md:ml-[12%]"
                >
                  <p className="text-[#111111] font-semibold text-[13px] md:text-[14px] leading-[1.6] max-w-[340px]">
                     Celebrating our legacy. Our alumni are shaping the tech landscape at world-renowned organizations, launching startups, and leading innovation across the globe.
@@ -284,7 +284,7 @@ const Alumni = () => {
           <div className="w-full flex justify-end mt-4 md:mt-0">
              <motion.div 
                initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-               className="text-[11vw] sm:text-[9.5vw] md:text-[8vw] xl:text-[120px] leading-[0.9] font-black text-[#111111] tracking-[-0.04em] uppercase whitespace-nowrap pr-[5%] md:pr-[8%]"
+               className="text-4xl sm:text-6xl md:text-[8vw] xl:text-[120px] leading-[1.1] md:leading-[0.9] font-black text-[#111111] tracking-[-0.02em] md:tracking-[-0.04em] uppercase pr-0 md:pr-[8%]"
                style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
              >
                CELEBRATING
@@ -295,10 +295,10 @@ const Alumni = () => {
           <div className="w-full flex justify-center pl-[5%] md:pl-[8%] mt-2 md:mt-0">
              <motion.div 
                initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-               className="text-[11vw] sm:text-[9.5vw] md:text-[8vw] xl:text-[120px] leading-[0.9] font-black text-[#111111] tracking-[-0.04em] uppercase whitespace-nowrap flex items-start"
+               className="text-4xl sm:text-6xl md:text-[8vw] xl:text-[120px] leading-[1.1] md:leading-[0.9] font-black text-[#111111] tracking-[-0.02em] md:tracking-[-0.04em] uppercase flex items-start pl-0 md:pl-[8%]"
                style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
              >
-               ALWAYS<span className="text-[3vw] md:text-[2vw] xl:text-[30px] mt-[1%] ml-1 md:ml-2 font-bold">™</span>
+               ALWAYS<span className="text-xl md:text-[2vw] xl:text-[30px] mt-[1%] ml-1 md:ml-2 font-bold">™</span>
              </motion.div>
           </div>
 

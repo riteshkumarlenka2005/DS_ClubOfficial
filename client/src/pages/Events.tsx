@@ -408,7 +408,7 @@ const Events = () => {
           </div>
 
           {/* ── Left Column ── */}
-          <div className="relative p-10 md:p-16 lg:p-20 flex flex-col justify-between bg-[#FAFAFA]">
+          <div className="relative p-6 sm:p-10 md:p-16 lg:p-20 flex flex-col justify-between bg-[#FAFAFA]">
 
 
             {/* Subtle radial lines background */}
@@ -418,7 +418,7 @@ const Events = () => {
             </div>
 
             <div className="relative z-10 flex-1">
-              <h1 className="text-[2.75rem] md:text-6xl lg:text-[4.5rem] font-medium tracking-tight text-[#1A1A1A] leading-[1.05] mb-8"
+              <h1 className="text-4xl sm:text-[2.75rem] md:text-6xl lg:text-[4.5rem] font-medium tracking-tight text-[#1A1A1A] leading-[1.05] mb-6 md:mb-8"
                 style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
                 TECH-DRIVEN<br />EVENTS FOR<br />STUDENT DEVELOPERS
               </h1>
@@ -431,7 +431,7 @@ const Events = () => {
             </div>
 
             {/* Bottom info row */}
-            <div className="relative z-10 flex flex-col xl:flex-row justify-between items-start xl:items-end mt-24 gap-8">
+            <div className="relative z-10 flex flex-col xl:flex-row justify-between items-start xl:items-end mt-12 md:mt-24 gap-6 md:gap-8">
               <p className="text-gray-500 text-[15px] leading-relaxed max-w-[220px] font-medium">
                 Connecting our community with advanced tech for faster, smarter, and more informed careers.
               </p>
@@ -467,18 +467,18 @@ const Events = () => {
                 }} />
 
               <div className="relative z-10 flex flex-col justify-end h-full w-full pb-4">
-                <div className="flex items-baseline gap-4 max-w-sm">
-                  <h2 className="text-[5rem] font-bold text-white drop-shadow-md leading-none tracking-tighter">+15</h2>
+                <div className="flex items-baseline gap-4 max-w-sm flex-wrap sm:flex-nowrap">
+                  <h2 className="text-6xl md:text-[5rem] font-bold text-white drop-shadow-md leading-none tracking-tighter">+15</h2>
                   <p className="text-white/95 text-base font-medium drop-shadow-md leading-snug">Total number of tech events and hackathons hosted this year.</p>
                 </div>
               </div>
             </div>
 
             {/* Bottom Right Split */}
-            <div className="flex flex-row h-[45%]">
+            <div className="flex flex-col sm:flex-row h-auto sm:h-[45%]">
 
               {/* Bottom Right - Left Pane (Purple) */}
-              <div className="w-1/2 bg-gradient-to-br from-[#c4b5fd] to-[#a855f7] p-8 relative overflow-hidden flex items-center justify-center">
+              <div className="w-full sm:w-1/2 h-48 sm:h-auto bg-gradient-to-br from-[#c4b5fd] to-[#a855f7] p-8 relative overflow-hidden flex items-center justify-center">
                 {/* Ribbed ripple effect */}
                 <div className="absolute inset-0 opacity-40 mix-blend-overlay"
                   style={{
@@ -492,7 +492,7 @@ const Events = () => {
               </div>
 
               {/* Bottom Right - Right Pane (Orange) */}
-              <div className="w-1/2 bg-gradient-to-br from-[#fdba74] to-[#ea580c] p-8 relative flex flex-col justify-end overflow-hidden">
+              <div className="w-full sm:w-1/2 min-h-[200px] sm:h-auto bg-gradient-to-br from-[#fdba74] to-[#ea580c] p-8 relative flex flex-col justify-end overflow-hidden">
                 {/* Ribbed vertical effect */}
                 <div className="absolute inset-0 opacity-20 mix-blend-overlay"
                   style={{ background: 'repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.8) 2px, rgba(255,255,255,0.8) 4px)' }} />
